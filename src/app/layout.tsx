@@ -1,5 +1,5 @@
 import  "./globals.css";
-import Header from "./components/header"
+import Navigation from "./components/navigation"
 
 export default function RootLayout({
                                        children,
@@ -10,7 +10,10 @@ export default function RootLayout({
         <html lang="en">
 
         <body>
-        <Header/>
+        <div className="fixed top-0 right-0 left-0 z-100">
+            <Navigation/>
+        </div>
+
         {children}
         </body>
         </html>

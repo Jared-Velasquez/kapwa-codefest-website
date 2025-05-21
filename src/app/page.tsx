@@ -1,14 +1,21 @@
-import Button from "@/app/components/button";
-import FaqTab from "@/app/components/faqTab";
+"use client";
+import LandingPage from "@/app/sections/LandingPage";
+import About from "@/app/sections/About";
 
 export default function Home() {
-  return (
-      <>
-        <Button onClick={"#Signup"} text="hello"/>
-        <FaqTab question={"What is a hackathon"} answer={"answer 1"}/>
-          <FaqTab question={"What is a Filipino"} answer={"answer 2"}/>
-
-      </>
-
-  );
+    return (
+        <>
+            <section id="LandingPage" className="relative h-[150vh] bg-green-50 bg-cover bg-center">
+                <img
+                    className="absolute w-full top-[40vh] z-8"
+                    src="/backgrounds/landing-foreground.png"
+                    alt="logo"
+                />
+                <LandingPage />
+            </section>
+            <section className="relative z-10 h-[150vh]" id="About">
+                <About />
+            </section>
+        </>
+    );
 }
