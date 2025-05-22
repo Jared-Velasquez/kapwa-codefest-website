@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 
 const Card = styled.div`
-    width: 15vw;
-    height: 35vh;
+    width: 20vw;
+    min-height: 45vh;
     background: white;
-
     border-radius: 8px;
 `
 
@@ -16,14 +15,17 @@ const Goal = styled.h1`
     color: black;
     font-size: calc(10px + 3vh);
     font-weight: 550;
-    font-family: Maragsa, Sans-Serif;
-`
+    font-family: Maragsa, sans-serif;
+    padding-bottom: 2vh;
+`;
+
 
 const Description = styled.h1`
     color: black;
-    font-size: calc(5px + 2vh);
+    font-size: calc(2px + 2vh);
     font-weight: normal;
     font-family: "instrument sans", sans-serif;
+    
     
 `
 

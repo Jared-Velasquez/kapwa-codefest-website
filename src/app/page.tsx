@@ -1,6 +1,8 @@
 "use client";
 import LandingPage from "@/app/sections/LandingPage";
 import About from "@/app/sections/About";
+import Goals from "@/app/sections/Goals";
+import Companies from "@/app/sections/Companies";
 
 export default function Home() {
     return (
@@ -13,8 +15,10 @@ export default function Home() {
                 />
                 <LandingPage />
             </section>
-            <section className="relative z-10 h-[150vh]" id="About">
+            <section className="relative z-10 h-[150vh] justify-center" id="About">
                 <About />
+                <Goals />
+                <Companies />
             </section>
         </>
     );

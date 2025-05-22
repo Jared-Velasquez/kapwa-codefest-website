@@ -25,14 +25,6 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.bg-noise {
-  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGZpbHRlciBpZD0ibm9pc2UiPjxmZVR1cmJ1bGVuY2UgdHlwZT0iZnJhY3RhbE5vaXNlIiBiYXNlRnJlcXVlbmN5PSIwLjEiIG51bU9jdGF2ZXM9IjMiIHN0aXRjaFRpbGVzPSJzdGl0Y2giIC8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbHRlcj0idXJsKCNub2lzZSkiIC8+PC9zdmc+");
-  background-repeat: repeat;
-  opacity: 0.08;
-  pointer-events: none;
-}
-
-
 @font-face {
   font-family: 'Maragsa';
   src: local('Maragsa'), url('../../public/fonts/Maragsa.woff');

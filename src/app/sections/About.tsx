@@ -25,9 +25,9 @@ export default function About(){
         <div className="z-30">
             <Heading>About</Heading>
 
-            <div className="flex h-[70vh]">
+            <div className="flex h-[80vh]">
                 <img className="h-[70vh] w-auto" src="/house.png" alt="house" />
-                <div className="w-full flex justify-around items-around flex-col px-20 h-[60vh] gap-10">
+                <div className="w-full flex justify-around items-around flex-col px-20 h-[70vh]">
                     <div className="flex self-start w-[40vw] h-auto h-max-[30vh] bg-white text-black p-[5vh] rounded-lg items-center">
                         <CardText>In celebration of Filipino Heritage Month, we are proud to host a hackathon rooted in the spirit of <span className="font-bold">bayanihan</span>  — the Filipino tradition of communal unity and support. This event brings together developers, designers, and problem-solvers to collaborate with local Filipino-owned businesses, helping them tackle real challenges through creative software and hardware solutions.</CardText>
                     </div>

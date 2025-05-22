@@ -7,12 +7,10 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
+        <html lang="en" className="scroll-smooth">
 
-        <body>
-        <div className="fixed top-0 right-0 left-0 z-100">
+        <body >
             <Navigation/>
-        </div>
 
         {children}
         </body>
