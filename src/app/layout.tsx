@@ -8,6 +8,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className="scroll-smooth">
+        <head>
+            <title>Filipino American Hackathon</title>
+        </head>
 
         <body >
             <Navigation/>

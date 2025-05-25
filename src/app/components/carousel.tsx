@@ -5,7 +5,7 @@ export default function Carousel({
                                      children: slides,
                                      autoSlide = false,
                                      autoSlideInterval = 3000,
-                                 }) {
+                                 } ) {
     const [curr, setCurr] = useState(0)
 
     const prev = () =>
@@ -29,13 +29,13 @@ export default function Carousel({
             <div className="absolute inset-0 flex items-center justify-between p-4">
                 <button
                     onClick={prev}
-                    className="p-1 text-gray-800 hover:bg-white cursor-pointer"
+                    className="p-1 text-gray-800 cursor-pointer"
                 >
                     <ChevronLeft size={40} />
                 </button>
                 <button
                     onClick={next}
-                    className="p-1 text-gray-800 hover:bg-white cursor-pointer"
+                    className="p-1 text-gray-800 cursor-pointer"
                 >
                     <ChevronRight size={40} />
                 </button>

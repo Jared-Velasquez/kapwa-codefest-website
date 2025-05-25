@@ -1,43 +1,19 @@
-import styled from "styled-components"
-
-const Heading = styled.h2`
-    font-size: 3rem;
-    text-align: center;
-    font-family: Maragsa, sans-serif;
-    color: black;
-    padding: 5rem 0 3rem 0;
-`
-
-const CardText = styled.p`
-    font-size: 1rem;
-`
-const Bayanihan = styled.h3`
-    font-size: 3rem;
-    font-family: TDSulog, sans-serif;
-`
-const Definition = styled.h3`
-    font-size: 1.5rem;
-    font-family: Maragsa, sans-serif;
-`
-
 export default function About(){
     return(
         <div className="z-30">
-            <Heading>About</Heading>
-
-            <div className="flex h-[80vh]">
-                <img className="h-[70vh] w-auto" src="/house.png" alt="house" />
-                <div className="w-full flex justify-around items-around flex-col px-20 h-[70vh]">
-                    <div className="flex self-start w-[40vw] h-auto h-max-[30vh] bg-white text-black p-[5vh] rounded-lg items-center">
-                        <CardText>In celebration of Filipino Heritage Month, we are proud to host a hackathon rooted in the spirit of <span className="font-bold">bayanihan</span>  — the Filipino tradition of communal unity and support. This event brings together developers, designers, and problem-solvers to collaborate with local Filipino-owned businesses, helping them tackle real challenges through creative software and hardware solutions.</CardText>
+            <h1 className="text-[3rem] text-center font-[Maragsa] text-black py-[5vh]">About</h1>
+            <div className="w-full">
+                <div className=" flex justify-around flex-col sm:px-20 h-[70vh] bg-red gap-10">
+                    <div className="flex self-center w-[80vw] xl:w-[40vw] bg-white text-black p-[5vh] xl:ml-[60vh] rounded-lg items-center">
+                        <p className="xl:text-[1rem]">In celebration of Filipino Heritage Month, we are proud to host a hackathon rooted in the spirit of <span className="font-bold">bayanihan</span>  — the Filipino tradition of communal unity and support. This event brings together developers, designers, and problem-solvers to collaborate with local Filipino-owned businesses, helping them tackle real challenges through creative software and hardware solutions.</p>
                     </div>
-                    <div className="flex flex-col self-end w-[40vw] h-auto h-max-[30vh] bg-white text-black p-[5vh] rounded-lg items-center gap-3">
-                        <div className="flex self-start gap-5" >
-                            <Bayanihan>Bayanihan</Bayanihan>
+                    <div className="flex flex-col xl:self-end self-center w-[80vw] xl:w-[40vw] bg-white text-black p-[5vh] rounded-lg items-center gap-3">
+                        <div className="flex flex-col sm:flex-row sm:self-start sm:gap-5 gap-1 self-center" >
+                            <h3 className="text-5xl font-[TDSulog]">Bayanihan</h3>
                             <img className="h-3 w-auto self-center" src="/icons/Star.png" alt="house" />
-                            <Definition className="self-center">[buy-uh-nee-hun]</Definition>
+                            <h3 className="text-2xl font-[TDSulog] self-center">[buy-uh-nee-hun]</h3>
                         </div>
-                        <CardText>Derived from the word bayan meaning town, nation, or community in general, "Bayanihan"  translates to "being a bayan," and refers to the spirit of communal unity and cooperation.</CardText>
+                        <p className="text-[1rem]">Derived from the word bayan meaning town, nation, or community in general, "Bayanihan"  translates to "being a bayan," and refers to the spirit of communal unity and cooperation.</p>
                     </div>
                 </div>
             </div>

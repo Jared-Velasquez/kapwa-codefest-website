@@ -5,3 +5,10 @@ export type Org = {
     img: string,
     website: string,
 }
+
+export type TimeEvent = {
+    id: string,
+    time: string,
+    name: string,
+    description: string,
+}

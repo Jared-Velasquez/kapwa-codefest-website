@@ -3,15 +3,6 @@ import { Org } from "@/types"
 import Organization from "@/app/components/organization";
 import Carousel from "@/app/components/carousel";
 
-
-const Heading = styled.h2`
-    font-size: 3rem;
-    text-align: left;
-    font-family: Maragsa, sans-serif;
-    color: black;
-    padding: 5rem 0 3rem 0;
-`
-
 export default function Companies() {
     const org1 : Org = {
         id: "1",
@@ -34,16 +25,16 @@ export default function Companies() {
     ]
 
     return(
-        <div className="flex w-full justify-center">
+        <div className="flex w-full justify-center h-[100vh]">
             <div className="flex w-[80vw] flex-col justify-center">
-                <Heading>Who We're Building For</Heading>
+                <h2 className="text-[3rem] text-center font-[Maragsa] text-black py-[5vh]">Who We're Building For</h2>
                 <div className="flex h-[65vh] w-[80vw] bg-white text-black rounded-lg items-center">
-                    <Carousel>
+                    {/* <Carousel>
                         {organizations.map((org, index) => (
                             <Organization key={index} org={org} />
                         ))}
-                    </Carousel>
-
+                    </Carousel>W*/}
+                        <p className="text-center w-[100%] text-4xl ">Companies Will be Revealed Soon! Stay Tuned </p>
                 </div>
             </div>
         </div>

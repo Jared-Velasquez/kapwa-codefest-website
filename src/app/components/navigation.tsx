@@ -19,13 +19,7 @@ export default function Navigation() {
                     <li className="text-black font-sans">
                         <Link href="#FAQ">FAQ</Link>
                     </li>
-                    <li className="text-black font-sans">
-                        <Link href="#Sponsors">Sponsors</Link>
-                    </li>
-                    <li className="text-black font-sans">
-                        <Link href="#Team">Team</Link>
-                    </li>
-                    <li className="text-black font-sans">
+                    <li className="text-black font-sans ">
                         <Link href="#Prizes">Prizes</Link>
                     </li>
                     <li className="text-black font-sans">
@@ -33,6 +27,9 @@ export default function Navigation() {
                     </li>
                     <li className="text-black font-sans">
                         <Link href="#Itinerary">Itinerary</Link>
+                    </li>
+                    <li className="text-black font-sans">
+                        <Link href="#Team">Team</Link>
                     </li>
                     <li className="text-black font-sans">
                         <Link href="#SignUp">Sign-Up</Link>
