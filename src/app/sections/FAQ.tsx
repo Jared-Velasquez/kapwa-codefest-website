@@ -1,5 +1,5 @@
 // import styled from 'styled-components';
-import FaqTab from "@/app/components/faqTab";
+import FaqTab from "@/app/components/FAQTab";
 
 export default function FAQ() {
   return (

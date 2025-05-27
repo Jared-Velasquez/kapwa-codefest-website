@@ -10,7 +10,7 @@ import Rules from "@/app/sections/Rules";
 import Itinerary from "@/app/sections/Itinerary";
 import Team from "@/app/sections/Team";
 import Signup from "@/app/sections/Signup";
-import Footer from "@/app/components/footer";
+import Footer from "@/app/components/Footer";
 
 export default function Home() {
     return (

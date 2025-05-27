@@ -123,7 +123,7 @@ function MobileNav() {
   );
 }
 
-export default function Navigation() {
+export default function Navbar() {
   return (
     <div className="relative">
       <DesktopNav />
