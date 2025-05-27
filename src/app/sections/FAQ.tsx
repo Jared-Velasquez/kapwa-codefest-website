@@ -31,7 +31,7 @@ export default function FAQ() {
         />
         <FaqTab
           question={"What is the schedule?"}
-          answer={"Check out the itenerary below!"}
+          answer={"Check out the itinerary below!"}
         />
         {/* <FaqTab question={"This is a question"} answer={"Here is the answer"} /> */}
       </div>
