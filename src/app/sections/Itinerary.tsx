@@ -25,7 +25,7 @@ export default function Itinerary() {
             eventName="West Coast Business Session"
             description="A chance to talk to the businesses!"
           />
-          <Event time="9 PM EST / 6 PM PST" eventName="Hacking Starts" />
+          <EventCard time="9 PM EST / 6 PM PST" eventName="Hacking Starts" />
         </DayCard>
 
         {/* Second Day */}
