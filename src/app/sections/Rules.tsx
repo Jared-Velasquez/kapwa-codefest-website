@@ -1,5 +1,5 @@
 import Carousel from "@/app/components/Carousel";
-import Link from "next/link";
+
 
 export default function Rules() {
   const rules: String[] = ["first rule", "last rule"];
