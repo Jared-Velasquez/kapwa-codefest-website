@@ -44,8 +44,8 @@ export default function Home() {
                     <FAQ />
                 </section>
             </div>
-            <div className="bg-[url(/backgrounds/prizesBackground.png)] bg-no-repeat bg-cover bg-[position:center]">
-                <section id="Prizes" className="py-20 flex relative z-10 min-h-[150vh] justify-center " >
+            <div className="bg-[url(/backgrounds/prizesBackground.png)] bg-no-repeat bg-cover bg-[position:center] ">
+                <section id="Prizes" className="-scroll-mt-50 py-20 flex relative z-10 min-h-[180vh] items-center flex justify-center" >
                     <Prizes />
                 </section>
             </div>
@@ -60,7 +60,7 @@ export default function Home() {
                 </section>
             </div>
             <div className="bg-[url(/backgrounds/TeamBackground.png)] bg-no-repeat bg-cover bg-[position:top_center]">
-                <section id="Team" className="py-20 flex relative z-10 min-h-[180vh] sm:min-h-[200vh] justify-center items-center" >
+                <section id="Team" className="-scroll-mt-100 py-20 flex relative z-10 min-h-[180vh] sm:min-h-[200vh] justify-center items-center" >
                     <Team />
                 </section>
             </div>
