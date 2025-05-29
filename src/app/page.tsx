@@ -50,7 +50,7 @@ export default function Home() {
                 </section>
             </div>
             <div className="bg-[url(/backgrounds/RulesBackground.png)] bg-no-repeat bg-cover bg-[position:top_center]">
-                <section id="Rules" className="py-20 relative z-10 min-h-[150vh]" >
+                <section id="Rules" className="-scroll-mt-20 py-20 relative z-10 min-h-[150vh]" >
                     <Rules />
                 </section>
             </div>
