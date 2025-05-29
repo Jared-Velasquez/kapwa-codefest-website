@@ -33,7 +33,9 @@ function DesktopNav() {
             <Link href="#Team">Team</Link>
           </li>
           <li className="text-black font-sans">
-            <Link href="#SignUp">Sign-Up</Link>
+            <a href="https://filam-hackathon-2025.auth.us-west-1.amazoncognito.com/login?client_id=35l46r028b1qtg145u1ai7olej&response_type=code&scope=email+openid+profile&redirect_uri=http%3A%2F%2Flocalhost%3A3000">
+              Login
+            </a>
           </li>
         </ul>
       </nav>
@@ -94,9 +96,9 @@ function MobileNav() {
               </Link>
             </li>
             <li className="text-black font-sans">
-              <Link href="#SignUp" onClick={() => setIsOpen(false)}>
-                Sign-Up
-              </Link>
+              <a href="https://filam-hackathon-2025.auth.us-west-1.amazoncognito.com/login?client_id=35l46r028b1qtg145u1ai7olej&response_type=code&scope=email+openid+profile&redirect_uri=http%3A%2F%2Flocalhost%3A3000">
+                Login
+              </a>
             </li>
           </ul>
         </nav>
