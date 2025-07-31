@@ -1,5 +1,6 @@
 import "./globals.css";
 import Navbar from "./components/Navbar";
+import { CognitoProvider } from "@/app/auth/CognitoProvider";
 
 export default function RootLayout({
   children,
@@ -13,9 +14,11 @@ export default function RootLayout({
       </head>
 
       <body>
-        <Navbar />
+        <CognitoProvider>
+          <Navbar />
 
-        {children}
+          {children}
+        </CognitoProvider>
       </body>
     </html>
   );
