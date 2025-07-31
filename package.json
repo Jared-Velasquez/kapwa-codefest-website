@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "next": "15.3.2",
+    "oidc-client-ts": "^3.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-feather": "^2.0.10",
+    "react-oidc-context": "^3.3.0",
     "styled-components": "^6.1.18"
   },
   "devDependencies": {
