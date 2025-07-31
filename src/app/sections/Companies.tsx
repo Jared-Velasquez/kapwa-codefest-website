@@ -1,4 +1,4 @@
-import styled from "styled-components";
+
 import { Org } from "@/types";
 import OrganizationCard from "@/app/components/OrganizationCard";
 import Carousel from "@/app/components/Carousel";

@@ -3,7 +3,7 @@ import FaqTab from "@/app/components/FAQTab";
 
 export default function FAQ() {
   return (
-    <div className="flex items-center flex-col pt-[40vh]">
+    <div className="flex items-center flex-col">
       <h2 className="text-[3rem] text-center font-[Maragsa] text-black py-[5vh]">
         FAQ
       </h2>

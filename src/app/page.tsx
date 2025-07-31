@@ -40,17 +40,17 @@ export default function Home() {
                 </section>
             </div>
             <div className="bg-[url(/backgrounds/FAQBackground.png)] bg-no-repeat bg-cover bg-[position:top_center]">
-                <section id="FAQ" className="py-20 relative z-10 min-h-[280vh]" >
+                <section id="FAQ" className="py-20 relative z-10 min-h-[250vh]" >
                     <FAQ />
                 </section>
             </div>
-            <div className="bg-[url(/backgrounds/prizesBackground.png)] bg-no-repeat bg-cover bg-[position:top_center]">
-                <section id="Prizes" className="py-20 relative z-10 min-h-[200vh]" >
+            <div className="bg-[url(/backgrounds/prizesBackground.png)] bg-no-repeat bg-cover bg-[position:center] ">
+                <section id="Prizes" className="-scroll-mt-50 py-20 flex relative z-10 min-h-[180vh] items-center flex justify-center" >
                     <Prizes />
                 </section>
             </div>
             <div className="bg-[url(/backgrounds/RulesBackground.png)] bg-no-repeat bg-cover bg-[position:top_center]">
-                <section id="Rules" className="py-20 relative z-10 min-h-[170vh]" >
+                <section id="Rules" className="-scroll-mt-20 py-20 relative z-10 min-h-[150vh]" >
                     <Rules />
                 </section>
             </div>
@@ -60,12 +60,12 @@ export default function Home() {
                 </section>
             </div>
             <div className="bg-[url(/backgrounds/TeamBackground.png)] bg-no-repeat bg-cover bg-[position:top_center]">
-                <section id="Team" className="py-20 flex relative z-10 min-h-[200vh] justify-center items-center" >
+                <section id="Team" className="-scroll-mt-100 py-20 flex relative z-10 min-h-[180vh] sm:min-h-[200vh] justify-center items-center" >
                     <Team />
                 </section>
             </div>
             <div className="bg-[url(/backgrounds/SignUpBackground.png)] bg-no-repeat bg-cover bg-[position:top_center]">
-                <section id="SignUp" className="py-20 relative z-10 min-h-[200vh]" >
+                <section id="SignUp" className="relative z-10 min-h-[100vh] sm:min-h-[180vh] flex justify-center items-center" >
                     <Signup />
                 </section>
                 <Footer />

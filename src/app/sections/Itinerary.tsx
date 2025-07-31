@@ -1,5 +1,5 @@
-import EventCard from "@/app/components/ItineraryComponents/EventCard";
-import DayCard from "@/app/components/ItineraryComponents/DayCard";
+import EventCard from "@/app/components/itineraryComponents/EventCard";
+import DayCard from "@/app/components/itineraryComponents/DayCard";
 
 export default function Itinerary() {
   return (
