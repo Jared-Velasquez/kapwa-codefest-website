@@ -21,7 +21,7 @@ export default function Rules() {
         <div className="flex self-center sm:self-end min-h-[50vh] sm:w-[50vw] w-[80vw] text-black rounded-lg items-center bg-[#EDAB1D]">
           <Carousel>
             {rules.map((rule, index) => (
-                <div className="flex items-center py-5 px-[13.5vw]">
+                <div className="flex items-center py-5 px-[13.5vw]" key={index}>
                     <div className="w-[53vw] sm:w-[33vw] flex justify-center items-center ">
                         <div className="text-center text-2xl">
                             {rule}

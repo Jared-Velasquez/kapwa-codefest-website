@@ -1,10 +1,17 @@
-import Button from "@/app/components/Button"
+"use client";
+import InteractiveButton from '@/app/components/InteractiveButton';
+import { useAuth } from 'react-oidc-context';
 
 export default function Signup() {
+    const auth = useAuth();
     return(
         <div className="items-center flex flex-col h-[100vh]">
             <h1 className="text-[3rem] text-center font-[Maragsa] text-black py-[5vh]">Give a Helping Hand </h1>
-            <Button text={"Sign-Up Today"} onClick={""} />
+            <InteractiveButton text={"Sign-Up Today"} onClick={() => {
+                console.log("Signing up...");
+                console.log(auth);
+                return auth.signinRedirect();
+            }} />
 
         </div>
     )
