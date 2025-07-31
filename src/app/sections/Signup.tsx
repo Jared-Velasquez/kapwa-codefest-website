@@ -7,12 +7,7 @@ export default function Signup() {
     return(
         <div className="items-center flex flex-col h-[100vh]">
             <h1 className="text-[3rem] text-center font-[Maragsa] text-black py-[5vh]">Give a Helping Hand </h1>
-            <InteractiveButton text={"Sign-Up Today"} onClick={() => {
-                console.log("Signing up...");
-                console.log(auth);
-                return auth.signinRedirect();
-            }} />
-
+            <InteractiveButton text={"Sign-Up Today"} onClick={() => auth.signinRedirect()} />
         </div>
     )
 }

@@ -11,8 +11,11 @@ import Itinerary from "@/app/sections/Itinerary";
 import Team from "@/app/sections/Team";
 import Signup from "@/app/sections/Signup";
 import Footer from "@/app/components/Footer";
+import { useAuth } from "react-oidc-context";
 
 export default function Home() {
+    const auth = useAuth();
+    
     return (
         <div className="overflow-hidden justify-center bg-gradient-to-b from-[#CFE8EC] to-[#FEA27B]">
 
