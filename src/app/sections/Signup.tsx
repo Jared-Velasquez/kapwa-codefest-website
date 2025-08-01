@@ -8,7 +8,7 @@ export default function Signup() {
     return(
         <div className="items-center flex flex-col h-[100vh]">
             <h1 className="text-[3rem] text-center font-[Maragsa] text-black py-[5vh]">Give a Helping Hand </h1>
-            <ProfileTab authToken={auth.user?.access_token || ""} isSignedIn={auth.isAuthenticated} />
+            <InteractiveButton text={"Register Today!"} isActive={true} onClick={() => auth.signinRedirect()} />
         </div>
     )
 }

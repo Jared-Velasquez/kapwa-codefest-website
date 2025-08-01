@@ -1,5 +1,6 @@
 "use client";
 
+import { UserManager } from "oidc-client-ts";
 import { AuthProvider } from "react-oidc-context";
 
 export const COGNITO_AUTH_CONFIG = {
@@ -10,7 +11,9 @@ export const COGNITO_AUTH_CONFIG = {
     scope: "openid profile email",
 }
 
+export const userManager = new UserManager(COGNITO_AUTH_CONFIG);
+
 console.log("Cognito Auth Config:", COGNITO_AUTH_CONFIG);
 export function CognitoProvider({ children }: { children: React.ReactNode }) {
-    return <AuthProvider {...COGNITO_AUTH_CONFIG}>{children}</AuthProvider>
+    return <AuthProvider userManager={userManager}>{children}</AuthProvider>
 }
