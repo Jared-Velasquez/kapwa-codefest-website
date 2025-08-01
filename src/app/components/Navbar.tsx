@@ -33,7 +33,7 @@ function DesktopNav() {
             <Link href="#Team">Team</Link>
           </li>
           <li className="text-black font-sans">
-            <Link href="#SignUp">Sign-Up</Link>
+            <Link href="#SignUp">Login</Link>
           </li>
         </ul>
       </nav>
@@ -95,7 +95,7 @@ function MobileNav() {
             </li>
             <li className="text-black font-sans">
               <Link href="#SignUp" onClick={() => setIsOpen(false)}>
-                Sign-Up
+                Login
               </Link>
             </li>
           </ul>
