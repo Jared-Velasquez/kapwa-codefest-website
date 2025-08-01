@@ -1,6 +1,7 @@
 "use client";
 import InteractiveButton from '@/app/components/InteractiveButton';
 import { useAuth } from 'react-oidc-context';
+import ProfileTab from '../components/Profile';
 
 export default function Signup() {
     const auth = useAuth();
