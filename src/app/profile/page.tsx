@@ -1,7 +1,10 @@
 "use client";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import InfoForm from "@/app/components/InfoForm";
 import InteractiveButton from "@/app/components/InteractiveButton";
+import { useAuth } from "react-oidc-context";
+import { useRouter } from "next/router";
+import axios from "axios";
 
 export default function ProfileTab({ authToken , isSignedIn}: { authToken : string, isSignedIn: boolean}) {
     // Use info from the authToken to pre-fill the form. If info is null, use placeholder text.
@@ -13,7 +16,70 @@ export default function ProfileTab({ authToken , isSignedIn}: { authToken : stri
     const [graduationYear, setGraduationYear] = useState("");
     const [isEditing, setIsEditing] = useState(false);
     const [buttonColor, setButtonColor] = useState("bg-gradient-to-r from-[#e9a400] to-[#f9d46c]");
+    const [isLoading, setIsLoading] = useState(true);
 
+    const auth = useAuth();
+    // const router = useRouter();
+
+    console.log("Profile page");
+
+    useEffect(() => {
+        if (!auth.isLoading && !auth.isAuthenticated) {
+            window.location.href = "/"; // Redirect to home if not authenticated
+        }
+    }, [auth.isLoading, auth.isAuthenticated]);
+
+    useEffect(() => {
+        if (!auth.isAuthenticated || !auth.user?.id_token) return;
+
+        const fetchUserProfile = async () => {
+            try {
+                console.log(
+                    "Invoking endpoint",
+                    `${process.env.NEXT_PUBLIC_API_GATEWAY_INVOKE_URL}/users/${auth.user?.profile?.sub}`
+                );
+
+                setIsLoading(true);
+
+                const response = await axios.get(
+                    `${process.env.NEXT_PUBLIC_API_GATEWAY_INVOKE_URL}/users/${auth.user?.profile?.sub}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${auth.user?.id_token}`,
+                        },
+                    }
+                )
+
+                console.log("Get response:", response);
+                setIsLoading(false);
+
+                // response:
+                // {
+                //     "user_id": "4909894e-a0f1-70a8-2f9f-3e5d07b4ef89",
+                //     "first_name": "Jared",
+                //     "last_name": "Velasquez",
+                //     "email": "jaredvel25@ucla.edu",
+                //     "discord_username": "jvel.",
+                //     "school": "University of California, Los Angeles",
+                //     "graduation_year": null,
+                //     "major": null,
+                //     "linkedin": "https://www.linkedin.com/in/jaredvel25/",
+                //     "is_registered": true
+                // }
+
+                setFirstName(response.data.first_name || "");
+                setLastName(response.data.last_name || "");
+                setDiscord(response.data.discord_username || "");
+                setSchool(response.data.school || "");
+                setMajor(response.data.major || "");
+                setGraduationYear(response.data.graduation_year || "");
+            } catch (error) {
+
+            }
+        }
+
+        fetchUserProfile();
+    }, [auth.isLoading, auth.isAuthenticated, auth.user?.id_token]);
 
     return (
         <div className="overflow justify-center bg-gradient-to-b from-[#CFE8EC] to-[#FEA27B]">
