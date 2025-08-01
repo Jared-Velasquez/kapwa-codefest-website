@@ -1,11 +1,8 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { UserManager } from "oidc-client-ts";
 import { useEffect, useState } from "react";
 import { useAuth } from "react-oidc-context";
-import { COGNITO_AUTH_CONFIG } from "@/app/auth/CognitoProvider";
-
-const userManager = new UserManager(COGNITO_AUTH_CONFIG);
+import { userManager } from "@/app/auth/CognitoProvider";
 
 export default function Callback() {
 

@@ -11,18 +11,15 @@ import Itinerary from "@/app/sections/Itinerary";
 import Team from "@/app/sections/Team";
 import Signup from "@/app/sections/Signup";
 import Footer from "@/app/components/Footer";
-import { useAuth } from "react-oidc-context";
 
 export default function Home() {
-    const auth = useAuth();
-    
     return (
         <div className="overflow-hidden justify-center bg-gradient-to-b from-[#CFE8EC] to-[#FEA27B]">
 
             <div className="bg-[url(/backgrounds/landing-foreground.png)] bg-no-repeat bg-cover sm:bg-[position:center_top] bg-[position:center_top] -my-[30vh] sm:my-0">
 
 
-            <section id="LandingPage" className="pt-60 sm:pt-20 relative z-10 min-h-[100vh] sm:min-h-[150vh]">
+                <section id="LandingPage" className="pt-60 sm:pt-20 relative z-10 min-h-[100vh] sm:min-h-[150vh]">
                     <LandingPage />
                 </section>
                 <section id="About" className="relative z-10">
