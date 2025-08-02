@@ -1,37 +1,25 @@
+// app/auth/Callback.tsx
 "use client";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+
+import { useEffect } from "react";
 import { useAuth } from "react-oidc-context";
-import { userManager } from "@/app/auth/CognitoProvider";
+import { useRouter } from "next/navigation";
 
 export default function Callback() {
+  const auth = useAuth();
+  const router = useRouter();
 
-    // Need hasMounted to ensure the component has mounted before using router
-    const [hasMounted, setHasMounted] = useState(false);
-    const auth = useAuth();
-    const router = useRouter();
+  useEffect(() => {
+    // when the AuthProvider has processed the callback,
+    // isAuthenticated will go from false → true
+    if (!auth.isLoading && auth.isAuthenticated) {
+      router.replace("/");
+    }
+  }, [auth.isLoading, auth.isAuthenticated, router]);
 
-    useEffect(() => {
-        setHasMounted(true);
-    }, []);
-
-    useEffect(() => {
-        if (!hasMounted) return;
-        userManager.signinRedirectCallback().then(() => {
-            console.log("User signed in successfully");
-            auth.signinSilent(); // Optionally, you can call signinSilent to refresh the user session
-            router.replace("/");
-        }).catch((error) => {
-            console.error("Error during sign-in callback:", error);
-        });
-    }, [hasMounted]);
-
-    return (
-        <div className="overflow-hidden justify-center bg-gradient-to-b from-[#CFE8EC] to-[#FEA27B] h-screen">
-            <div className="bg-[url(/backgrounds/landing-foreground.png)] bg-no-repeat bg-cover sm:bg-[position:center_top] bg-[position:center_top] -my-[30vh] sm:my-0">
-                {/* No content here */}
-            </div>
-        </div>
-
-    )
+  return (
+    <div className="flex items-center justify-center h-screen">
+      <p>Completing sign-in…</p>
+    </div>
+  );
 }
