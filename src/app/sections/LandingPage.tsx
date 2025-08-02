@@ -32,8 +32,8 @@ export default function LandingPage() {
 
         console.log("Get response:", response);
 
-        setIsProfileComplete(response.data.is_registered);
-        setIsRegistered(response.data.is_complete);
+        setIsProfileComplete(response.data.is_complete);
+        setIsRegistered(response.data.is_registered);
       } catch (error) {
         console.error("Error fetching user profile:", error);
         if (axios.isAxiosError(error)) {
