@@ -2,8 +2,11 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useAuth } from "react-oidc-context";
 
 function DesktopNav() {
+  const auth = useAuth();
+  
   return (
     <div className="hidden fixed top-0 right-0 left-0 z-100 md:block">
       <nav className="bg-white w-[90vw] p-[1.5vh_1vw] rounded-[30px] my-[4vh] mx-auto shadow-md scroll-smooth">
@@ -32,9 +35,15 @@ function DesktopNav() {
           <li className="text-black font-sans">
             <Link href="/#Team">Team</Link>
           </li>
-          <li className="text-black font-sans">
-            <Link href="/#SignUp">Login</Link>
-          </li>
+          {auth.isAuthenticated ? (
+            <li className="text-black font-sans">
+              <Link href="/profile">Profile</Link>
+            </li>
+          ) : (
+            <li className="text-black font-sans">
+              <Link href="/#SignUp">Login</Link>
+            </li>
+          )}
         </ul>
       </nav>
     </div>
@@ -43,6 +52,7 @@ function DesktopNav() {
 
 function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
+  const auth = useAuth();
 
   return (
     <>
@@ -93,11 +103,19 @@ function MobileNav() {
                 Team
               </Link>
             </li>
-            <li className="text-black font-sans">
-              <Link href="/#SignUp" onClick={() => setIsOpen(false)}>
-                Login
-              </Link>
-            </li>
+            {auth.isAuthenticated ? (
+              <li className="text-black font-sans">
+                <Link href="/profile" onClick={() => setIsOpen(false)}>
+                  Profile
+                </Link>
+              </li>
+            ) : (
+              <li className="text-black font-sans">
+                <Link href="/#SignUp" onClick={() => setIsOpen(false)}>
+                  Login
+                </Link>
+              </li>
+            )}
           </ul>
         </nav>
       </div>
