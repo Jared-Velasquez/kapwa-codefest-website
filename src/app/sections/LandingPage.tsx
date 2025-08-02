@@ -13,7 +13,7 @@ export default function LandingPage() {
   useEffect(() => {
     if (!auth.isAuthenticated || !auth.user?.id_token) return;
 
-    const fetchUserProfile = async () => {
+    const fetchRegistrationData = async () => {
       try {
         console.log(
           "Invoking endpoint",
@@ -44,7 +44,7 @@ export default function LandingPage() {
       }
     };
 
-    fetchUserProfile();
+    fetchRegistrationData();
   }, [auth.isAuthenticated, auth.user?.id_token]);
 
   // Redirect the user to the profile page via NextJS routing
