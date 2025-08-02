@@ -2,39 +2,48 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useAuth } from "react-oidc-context";
 
 function DesktopNav() {
+  const auth = useAuth();
+  
   return (
     <div className="hidden fixed top-0 right-0 left-0 z-100 md:block">
       <nav className="bg-white w-[90vw] p-[1.5vh_1vw] rounded-[30px] my-[4vh] mx-auto shadow-md scroll-smooth">
         <ul className="flex flex-row justify-around">
           <li className="text-black font-sans">
-            <Link href="#LandingPage">Home</Link>
+            <Link href="/#LandingPage">Home</Link>
           </li>
           <li className="text-black font-sans">
-            <Link href="#About">About</Link>
+            <Link href="/#About">About</Link>
           </li>
           <li className="text-black font-sans">
-            <Link href="#Schools">Schools</Link>
+            <Link href="/#Schools">Schools</Link>
           </li>
           <li className="text-black font-sans">
-            <Link href="#FAQ">FAQ</Link>
+            <Link href="/#FAQ">FAQ</Link>
           </li>
           <li className="text-black font-sans ">
-            <Link href="#Prizes">Prizes</Link>
+            <Link href="/#Prizes">Prizes</Link>
           </li>
           <li className="text-black font-sans">
-            <Link href="#Rules">Rules</Link>
+            <Link href="/#Rules">Rules</Link>
           </li>
           <li className="text-black font-sans">
-            <Link href="#Itinerary">Itinerary</Link>
+            <Link href="/#Itinerary">Itinerary</Link>
           </li>
           <li className="text-black font-sans">
-            <Link href="#Team">Team</Link>
+            <Link href="/#Team">Team</Link>
           </li>
-          <li className="text-black font-sans">
-            <Link href="#SignUp">Login</Link>
-          </li>
+          {auth.isAuthenticated ? (
+            <li className="text-black font-sans">
+              <Link href="/profile">Profile</Link>
+            </li>
+          ) : (
+            <li className="text-black font-sans">
+              <Link href="/#SignUp">Login</Link>
+            </li>
+          )}
         </ul>
       </nav>
     </div>
@@ -43,6 +52,7 @@ function DesktopNav() {
 
 function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
+  const auth = useAuth();
 
   return (
     <>
@@ -54,50 +64,58 @@ function MobileNav() {
         <nav>
           <ul className="flex flex-col gap-5 text-center">
             <li className="text-black font-sans">
-              <Link href="#LandingPage" onClick={() => setIsOpen(false)}>
+              <Link href="/#LandingPage" onClick={() => setIsOpen(false)}>
                 Home
               </Link>
             </li>
             <li className="text-black font-sans">
-              <Link href="#About" onClick={() => setIsOpen(false)}>
+              <Link href="/#About" onClick={() => setIsOpen(false)}>
                 About
               </Link>
             </li>
             <li className="text-black font-sans">
-              <Link href="#Schools" onClick={() => setIsOpen(false)}>
+              <Link href="/#Schools" onClick={() => setIsOpen(false)}>
                 Schools
               </Link>
             </li>
             <li className="text-black font-sans">
-              <Link href="#FAQ" onClick={() => setIsOpen(false)}>
+              <Link href="/#FAQ" onClick={() => setIsOpen(false)}>
                 FAQ
               </Link>
             </li>
             <li className="text-black font-sans">
-              <Link href="#Prizes" onClick={() => setIsOpen(false)}>
+              <Link href="/#Prizes" onClick={() => setIsOpen(false)}>
                 Prizes
               </Link>
             </li>
             <li className="text-black font-sans">
-              <Link href="#Rules" onClick={() => setIsOpen(false)}>
+              <Link href="/#Rules" onClick={() => setIsOpen(false)}>
                 Rules
               </Link>
             </li>
             <li className="text-black font-sans">
-              <Link href="#Itinerary" onClick={() => setIsOpen(false)}>
+              <Link href="/#Itinerary" onClick={() => setIsOpen(false)}>
                 Itinerary
               </Link>
             </li>
             <li className="text-black font-sans">
-              <Link href="#Team" onClick={() => setIsOpen(false)}>
+              <Link href="/#Team" onClick={() => setIsOpen(false)}>
                 Team
               </Link>
             </li>
-            <li className="text-black font-sans">
-              <Link href="#SignUp" onClick={() => setIsOpen(false)}>
-                Login
-              </Link>
-            </li>
+            {auth.isAuthenticated ? (
+              <li className="text-black font-sans">
+                <Link href="/profile" onClick={() => setIsOpen(false)}>
+                  Profile
+                </Link>
+              </li>
+            ) : (
+              <li className="text-black font-sans">
+                <Link href="/#SignUp" onClick={() => setIsOpen(false)}>
+                  Login
+                </Link>
+              </li>
+            )}
           </ul>
         </nav>
       </div>
