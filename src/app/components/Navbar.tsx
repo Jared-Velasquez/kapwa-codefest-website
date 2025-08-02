@@ -41,7 +41,7 @@ function DesktopNav() {
             </li>
           ) : (
             <li className="text-black font-sans">
-              <Link href="/#SignUp">Login</Link>
+              <div onClick={() => auth.signinRedirect()} className="cursor-pointer">Login</div>
             </li>
           )}
         </ul>
@@ -111,9 +111,7 @@ function MobileNav() {
               </li>
             ) : (
               <li className="text-black font-sans">
-                <Link href="/#SignUp" onClick={() => setIsOpen(false)}>
-                  Login
-                </Link>
+                <div onClick={() => auth.signinRedirect()} className="cursor-pointer">Login</div>
               </li>
             )}
           </ul>
