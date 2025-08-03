@@ -3,7 +3,7 @@ export default function TeamProfile({linkedin, headshot, name, school}: {linkedi
     return (
         <div className="flex flex-col items-center">
             <div>
-                <Link href={linkedin} className="bg-gray-100 rounded-2xl w-32 h-32 overflow-hidden flex items-center justify-center">
+                <Link href={linkedin} className="bg-gray-100 rounded-2xl w-32 h-32 overflow-hidden flex items-center justify-center " >
                     <img
                         src={headshot}
                         alt={`${name}'s headshot`}
