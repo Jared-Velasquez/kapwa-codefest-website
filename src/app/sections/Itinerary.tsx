@@ -44,8 +44,8 @@ export default function Itinerary() {
           />
           <EventCard
             time="4-5 PM EST / 1-2 PM PST"
-            eventName="Workshop"
-            description="Details TBD"
+            eventName="AI Hybrid Search"
+            description="Workshop hosted by Jacky Liang (AnswerHQ)"
           />
           <EventCard
             time="5-6 PM EST / 2-3 PM PST"
@@ -64,7 +64,7 @@ export default function Itinerary() {
           />
           <EventCard
             time="8-9 PM EST / 5-6 PM PST"
-            eventName="Workshop"
+            eventName="Speaker Panel Event"
             description="Details TBD"
           />
         </DayCard>
@@ -82,7 +82,8 @@ export default function Itinerary() {
           />
           <EventCard
             time="5:30-7:30 PM EST / 2:30-4:30 PM PST"
-            eventName="Career Panel on How The Panelists Broke into Tech"
+            eventName="Filipinos breaking into Tech"
+            description="Speaker Panel featuring: "
           />
         </DayCard>
 
