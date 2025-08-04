@@ -45,7 +45,7 @@ export default function Home() {
                 </section>
             </div>
             <div className="bg-[url(/backgrounds/prizesBackground.png)] bg-no-repeat bg-cover bg-[position:center] ">
-                <section id="Prizes" className="-scroll-mt-50 py-20 flex relative z-10 min-h-[180vh] items-center flex justify-center" >
+                <section id="Prizes" className="-scroll-mt-50 py-20 flex relative z-10 min-h-[100vh] md:min-h-[180vh] items-center justify-center" >
                     <Prizes />
                 </section>
             </div>

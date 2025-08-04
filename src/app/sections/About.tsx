@@ -8,8 +8,8 @@ export default function About() {
         <div className=" flex justify-around flex-col sm:px-20 h-[70vh] bg-red gap-10">
           <div className="flex self-center w-[80vw] xl:w-[40vw] bg-white text-black p-[5vh] xl:ml-[60vh] rounded-lg items-center">
             <p className="xl:text-[1rem]">
-              In celebration of Filipino Heritage Month, we are proud to host a
-              hackathon rooted in the spirit of{" "}
+              In celebration of Filipino History Month, we are proud to host a
+              Kapwa Codefest rooted in the spirit of{" "}
               <span className="font-bold">bayanihan</span> — the Filipino
               tradition of communal unity and support. This event brings
               together developers, designers, and problem-solvers to collaborate

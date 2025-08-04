@@ -15,9 +15,15 @@ const Description = styled.h1`
 
 export default function OrganizationCard({ org }: { org: Org }) {
   return (
-    <div className="flex items-center py-5 px-[8.5vw]">
-      <div className="bg-gray-400 w-[33vw] h-[40vh] rounded-lg items-center"></div>
-      <div className="flex flex-col p-10 w-[30vw] gap-[3vh]">
+    <div className="flex items-center py-5 md:px-[8.5vw] px-[5vw] md:flex-row flex-col">
+      <div className="w-[40vw] md:w-[33vw] md:h-[40vh] rounded-lg flex items-center justify-center overflow-hidden">
+          <img
+              src={org.img}
+              alt={org.name + "'s Image"}
+              className="md:max-w-full max-w-[40vw] max-h-[20vh] md:max-h-full object-contain"
+          />
+      </div>
+      <div className="flex flex-col p-10 md:w-[30vw] w-[70vw] gap-[3vh]">
         <OrgName className="text-4xl font-bold text-gray-900">
           {org.name}
         </OrgName>

@@ -3,7 +3,7 @@
 export default function HeroHeader() {
   return (
     <header className="flex flex-col gap-5 text-center text-black z-10 p-5">
-      <h1 className="font-[TDSulog] text-[3rem]">FILIPINO-AMERICAN</h1>
+      <h1 className="font-[TDSulog] text-[3rem]">KAPWA</h1>
       <h2 className="flex font-[Maragsa] text-[2rem] justify-center items-center">
         <svg
           width={30}
@@ -21,8 +21,7 @@ export default function HeroHeader() {
           />
         </svg>
         <div className="flex gap-5 text-black px-6">
-          <span>H I S T O R Y</span>
-          <span>M O N T H</span>
+          <span>C O D E F E S T</span>
         </div>
         <svg
           width={30}
