@@ -22,17 +22,16 @@ export default function Home() {
                 <section id="LandingPage" className="pt-60 sm:pt-20 relative z-10 min-h-[100vh] sm:min-h-[150vh]">
                     <LandingPage />
                 </section>
-                <section id="About" className="relative z-10">
-                    <div className="py-20 relative z-10 min-h-[100vh]">
-                        <About />
-                    </div>
-                    <div className="py-20 relative z-10 min-h-[60vh]">
+                <section id="About" className="relative z-10 py-20 min-h-[100vh]">
+                    <About />
+                    <div className="py-20 min-h-[60vh]">
                         <Goals />
                     </div>
-                    <div className="pb-20 relative z-10 min-h-[130vh]">
+                    <div className="pb-20 min-h-[130vh]">
                         <Companies />
                     </div>
                 </section>
+
             </div>
             <div className="bg-[url(/backgrounds/schoolsBackground.png)] bg-no-repeat bg-size(auto_full) bg-cover  bg-[position:top_center]">
                 <section id="Schools" className="py-20 relative z-10 min-h-[150vh]">

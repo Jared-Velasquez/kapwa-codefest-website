@@ -10,7 +10,7 @@ export default function Team() {
             <div>
                 <h3 className="text-[2rem] font-[Maragsa] py-5">Organizers</h3>
                 <div className="flex flex-wrap justify-center overflow-x-hidden w-[90vw] md:w-[70vw] gap-x-20">
-                    <TeamProfile headshot={"/headshots/AlyssaHeadshot.jpg"} name={"Alyssa Najera"} school={"Boston University"} linkedin={"www.linkedin.com/in/alyssanaj7571"} />
+                    <TeamProfile headshot={"/headshots/AlyssaHeadshot.jpg"} name={"Alyssa Najera"} school={"Boston University"} linkedin={"https://www.linkedin.com/in/alyssanaj7571"} />
                     <TeamProfile headshot={"/headshots/BensonHeadshot.jpg"} name={"Benson Manzano"} school={"University of California Irvine"} linkedin={"https://www.linkedin.com/in/benson-manzano/"} />
                     <TeamProfile headshot={"/headshots/FaithHeadshot.jpg"} name={"Faith Rivera"} school={"University of California San Diego"} linkedin={"https://www.linkedin.com/in/faithnrivera \n"} />
                     <TeamProfile headshot={"/headshots/JaredHeadshot.jpg"} name={"Jared Velasquez"} school={"University of California Los Angeles"} linkedin={"https://www.linkedin.com/in/jaredvel25/"} />
