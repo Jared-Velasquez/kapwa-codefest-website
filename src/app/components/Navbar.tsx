@@ -33,7 +33,7 @@ export default function Navbar() {
                     }
                 });
             },
-            { threshold: 0.3 }
+            { threshold: 0.1 }
         );
 
         sections.forEach((section) => {
@@ -135,7 +135,7 @@ function MobileNav({ auth, activeSection }: { auth: any; activeSection: string }
                                     onClick={() => setIsOpen(false)}
                                     className={`font-sans ${
                                         activeSection === section.id
-                                            ? "text-black font-bold bg-[#EDAB1D] rounded-[40px] px-[2vw] py-[2vh]"
+                                            ? "text-black font-bold bg-[#EDAB1D] rounded-[40px] px-[2vw] py-[1vh]"
                                             : "text-black"
                                     }`}
                                 >

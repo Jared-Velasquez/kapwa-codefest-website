@@ -26,7 +26,7 @@ export default function Team() {
                 <div className="flex flex-wrap justify-center overflow-y-auto overflow-x-hidden w-[90vw] md:w-[70vw] gap-x-20">
                     <TeamProfile headshot={"/headshots/BiancaHeadshot.jpg"} name={"Bianca Cataniag"} school={"University of California Irvine"} linkedin={"https://www.linkedin.com/in/leilani-bascos-026554305/"} />
                     <TeamProfile headshot={"/headshots/LeilaniHeadshot.jpg"} name={"Leilani Bascos"} school={"University of California Irvine"} linkedin={"https://www.linkedin.com/in/bianca-cataniag"} />
-                    <TeamProfile  headshot={""} name={"Ella Ligasan"} school={"University of California Irvine"} linkedin={"https://www.linkedin.com/in/danielle-ella-ligasan-950a91217"}/>
+                    <TeamProfile  headshot={"/headshots/EllaHeadshot.jpg"} name={"Ella Ligasan"} school={"University of California Irvine"} linkedin={"https://www.linkedin.com/in/danielle-ella-ligasan-950a91217"}/>
                 </div>
             </div>
         </div>

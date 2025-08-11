@@ -23,14 +23,13 @@ export default function Home() {
                     <LandingPage />
                 </section>
                 <section id="About" className="relative z-10 py-20 min-h-[100vh]">
-                    <About />
-                    <div className="py-20 min-h-[60vh]">
+                    <div className="flex flex-col gap-[20vh]">
+                        <About />
                         <Goals />
-                    </div>
-                    <div className="pb-20 min-h-[130vh]">
                         <Companies />
                     </div>
                 </section>
+
 
             </div>
             <div className="bg-[url(/backgrounds/schoolsBackground.png)] bg-no-repeat bg-size(auto_full) bg-cover  bg-[position:top_center]">
