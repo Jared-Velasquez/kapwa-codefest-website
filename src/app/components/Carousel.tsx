@@ -26,20 +26,21 @@ export default function Carousel({
             >
                 {slides}
             </div>
-            <div className="absolute inset-0 flex items-center justify-between p-4">
+            <div className="absolute inset-0 flex items-center justify-between p-4 pointer-events-none">
                 <button
                     onClick={prev}
-                    className="p-1 text-gray-800 cursor-pointer"
+                    className="p-1 text-gray-800 cursor-pointer pointer-events-auto"
                 >
                     <ChevronLeft size={40} />
                 </button>
                 <button
                     onClick={next}
-                    className="p-1 text-gray-800 cursor-pointer"
+                    className="p-1 text-gray-800 cursor-pointer pointer-events-auto"
                 >
                     <ChevronRight size={40} />
                 </button>
             </div>
+
 
         </div>
     )

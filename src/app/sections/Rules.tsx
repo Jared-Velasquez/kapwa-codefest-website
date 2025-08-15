@@ -22,7 +22,7 @@ export default function Rules() {
           <Carousel>
             {rules.map((rule, index) => (
                 <div className="flex items-center py-5 px-[13.5vw]" key={index}>
-                    <div className="w-[53vw] sm:w-[33vw] flex justify-center items-center ">
+                    <div className="w-[53vw] sm:w-[23vw] flex justify-center items-center ">
                         <div className="text-center text-2xl">
                             {rule}
                         </div>
