@@ -80,7 +80,7 @@ export default function Navbar() {
                                 <Link
                                     ref={(el) => (navRefs.current[i] = el)}
                                     href={`/#${section.id}`}
-                                    className="font-sans px-[2vw] py-[1.5vh] rounded-[40px] text-black text-center block"
+                                    className="font-sans px-[2vw] py-[1.5vh] rounded-[40px] text-black text-center text-lg block"
                                 >
                                     {section.label}
                                 </Link>
@@ -91,7 +91,7 @@ export default function Navbar() {
                             <li className="relative z-10">
                                 <Link
                                     href="/profile"
-                                    className="text-black font-sans px-[2vw] py-[1.5vh] rounded-[40px] block text-center"
+                                    className="text-black font-sans px-[2vw] py-[1.5vh] rounded-[40px] block text-center text-lg"
                                 >
                                     Profile
                                 </Link>
@@ -100,7 +100,7 @@ export default function Navbar() {
                             <li className="relative z-10">
                                 <div
                                     onClick={() => auth.signinRedirect()}
-                                    className="cursor-pointer text-black font-sans px-[2vw] py-[1.5vh] rounded-[40px] block text-center"
+                                    className="cursor-pointer text-black font-sans px-[2vw] py-[1.5vh] rounded-[40px] block text-center text-lg"
                                 >
                                     Login
                                 </div>
