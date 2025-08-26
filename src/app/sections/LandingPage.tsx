@@ -11,14 +11,10 @@ export default function LandingPage() {
   const [isRegistered, setIsRegistered] = useState(false);
 
   useEffect(() => {
-    if (!auth.isAuthenticated || !auth.user?.id_token) return;
+    if (!auth.isAuthenticated || !auth.user?.id_token || !auth.user?.profile?.sub) return;
 
     const fetchRegistrationData = async () => {
       try {
-        console.log(
-          "Invoking endpoint",
-          `${process.env.NEXT_PUBLIC_API_GATEWAY_INVOKE_URL}/users/${auth.user?.profile?.sub}/check-registration`
-        );
         setIsLoading(true);
 
         const response = await axios.get(
