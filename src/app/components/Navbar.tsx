@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { useAuth } from "react-oidc-context";
 
 const sections = [
@@ -17,6 +18,8 @@ const sections = [
 
 export default function Navbar() {
     const auth = useAuth();
+    const pathname = usePathname();
+
     const [activeSection, setActiveSection] = useState("LandingPage");
     const [highlightStyle, setHighlightStyle] = useState({ left: 0, width: 0 });
     const navRefs = useRef<(HTMLAnchorElement | null)[]>([]);
@@ -36,27 +39,55 @@ export default function Navbar() {
             { threshold: 0.1 }
         );
 
+
+        const observed: Element[] = [];
         sections.forEach((section) => {
             const el = document.getElementById(section.id);
-            if (el) observer.observe(el);
+            if (el) {
+                observer.observe(el);
+                observed.push(el);
+            }
         });
 
-        return () => observer.disconnect();
-    }, []);
+        return () => {
+            observed.forEach((el) => observer.unobserve(el));
+            observer.disconnect();
+        };
+    }, [pathname]);
+
+    // useEffect(() => {
+    //     const activeIndex = sections.findIndex((s) => s.id === activeSection);
+    //     const activeEl = navRefs.current[activeIndex];
+    //     const containerRect = navContainerRef.current?.getBoundingClientRect();
+
+    //     if (activeEl && containerRect) {
+    //         const { left, width } = activeEl.getBoundingClientRect();
+    //         setHighlightStyle({
+    //             left: left - containerRect.left,
+    //             width,
+    //         });
+    //     }
+    // }, [activeSection]);
 
     useEffect(() => {
-        const activeIndex = sections.findIndex((s) => s.id === activeSection);
-        const activeEl = navRefs.current[activeIndex];
-        const containerRect = navContainerRef.current?.getBoundingClientRect();
+        const update = () => {
+            const activeIndex = sections.findIndex((s) => s.id === activeSection);
+            const activeEl = navRefs.current[activeIndex];
+            const containerRect = navContainerRef.current?.getBoundingClientRect();
 
-        if (activeEl && containerRect) {
-            const { left, width } = activeEl.getBoundingClientRect();
-            setHighlightStyle({
-                left: left - containerRect.left,
-                width,
-            });
+            if (activeEl && containerRect) {
+                const { left, width } = activeEl.getBoundingClientRect();
+                setHighlightStyle({
+                    left: left - containerRect.left,
+                    width,
+                });
+            }
         }
-    }, [activeSection]);
+
+        update();
+        window.addEventListener("resize", update);
+        return () => window.removeEventListener("resize", update);
+    }, [activeSection, auth.isAuthenticated, pathname]);
 
     return (
         <div className="relative">
@@ -80,7 +111,7 @@ export default function Navbar() {
                                 <Link
                                     ref={(el) => (navRefs.current[i] = el)}
                                     href={`/#${section.id}`}
-                                    className="font-sans px-[2vw] py-[1.5vh] rounded-[40px] text-black text-center block"
+                                    className="font-sans px-[2vw] py-[1.5vh] rounded-[40px] text-black text-center text-lg block"
                                 >
                                     {section.label}
                                 </Link>
@@ -91,7 +122,7 @@ export default function Navbar() {
                             <li className="relative z-10">
                                 <Link
                                     href="/profile"
-                                    className="text-black font-sans px-[2vw] py-[1.5vh] rounded-[40px] block text-center"
+                                    className="text-black font-sans px-[2vw] py-[1.5vh] rounded-[40px] block text-center text-lg"
                                 >
                                     Profile
                                 </Link>
@@ -100,7 +131,7 @@ export default function Navbar() {
                             <li className="relative z-10">
                                 <div
                                     onClick={() => auth.signinRedirect()}
-                                    className="cursor-pointer text-black font-sans px-[2vw] py-[1.5vh] rounded-[40px] block text-center"
+                                    className="cursor-pointer text-black font-sans px-[2vw] py-[1.5vh] rounded-[40px] block text-center text-lg"
                                 >
                                     Login
                                 </div>

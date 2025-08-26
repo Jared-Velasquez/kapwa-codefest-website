@@ -1,8 +1,14 @@
 import axios from "axios";
 import HeroHeader from "@/app/components/HeroHeader";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAuth } from "react-oidc-context";
+import useSWR, { mutate as globalMutate } from "swr";
 import InteractiveButton from "../components/InteractiveButton";
+import { AnimatePresence, motion } from "framer-motion";
+
+const MIN_DELAY_MS = 500;
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+type UIState = "loading" | "profileIncomplete" | "canRegister" | "doneOrGuest";
 
 export default function LandingPage() {
   const auth = useAuth();
@@ -10,42 +16,47 @@ export default function LandingPage() {
   const [isProfileComplete, setIsProfileComplete] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
 
+  const uiState: UIState = useMemo(() => {
+    if (!auth.isAuthenticated) return "doneOrGuest";
+    if (isLoading) return "loading";
+    if (!isProfileComplete) return "profileIncomplete";
+    if (isProfileComplete && !isRegistered) return "canRegister";
+    return "doneOrGuest";
+  }, [auth.isAuthenticated, isLoading, isProfileComplete, isRegistered]);
+
   useEffect(() => {
-    if (!auth.isAuthenticated || !auth.user?.id_token) return;
+    if (!auth.isAuthenticated || !auth.user?.id_token || !auth.user?.profile?.sub) return;
 
     const fetchRegistrationData = async () => {
+      setIsLoading(true);
       try {
-        console.log(
-          "Invoking endpoint",
-          `${process.env.NEXT_PUBLIC_API_GATEWAY_INVOKE_URL}/users/${auth.user?.profile?.sub}/check-registration`
-        );
-        setIsLoading(true);
+        const [res] = await Promise.all([
+          axios.get(
+            `${process.env.NEXT_PUBLIC_API_GATEWAY_INVOKE_URL}/users/${auth.user?.profile?.sub}/check-registration`,
+            {
+              headers: {
+                Authorization: `Bearer ${auth.user?.id_token}`,
+              },
+            }
+          ),
+          sleep(MIN_DELAY_MS)
+        ]);
 
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_GATEWAY_INVOKE_URL}/users/${auth.user?.profile?.sub}/check-registration`,
-          {
-            headers: {
-              Authorization: `Bearer ${auth.user?.id_token}`,
-            },
-          }
-        );
-
-        console.log("Get response:", response);
-
-        setIsProfileComplete(response.data.is_complete);
-        setIsRegistered(response.data.is_registered);
+        console.log("Get response:", res.data.is_complete, res.data.is_registered);
+        setIsProfileComplete(res.data.is_complete);
+        setIsRegistered(res.data.is_registered);
       } catch (error) {
+        // Fall back to prompt profile completion if error occurs
         console.error("Error fetching user profile:", error);
-        if (axios.isAxiosError(error)) {
-          console.error("Response headers:", error.response?.headers);
-        }
+        setIsProfileComplete(false);
+        setIsRegistered(false);
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchRegistrationData();
-  }, [auth.isAuthenticated, auth.user?.id_token]);
+  }, [auth.isAuthenticated, auth.user?.id_token, auth.user?.profile?.sub]);
 
   // Redirect the user to the profile page via NextJS routing
   function redirectToProfile() {
@@ -53,52 +64,112 @@ export default function LandingPage() {
   }
 
   async function registerUserForHackathon() {
+    setIsLoading(true);
     console.log("Registering user for hackathon...");
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_GATEWAY_INVOKE_URL}/users/register`,
-      null, // No body is needed for this endpoint
-      {
-        headers: {
-          Authorization: `Bearer ${auth.user?.id_token}`,
-        },
-      }
-    );
 
-    // TODO: if successful, update the UI to reflect registration status
-    console.log("Registration response:", response);
-  }
+    try {
+      await Promise.all([
+        axios.post(
+          `${process.env.NEXT_PUBLIC_API_GATEWAY_INVOKE_URL}/users/register`,
+          null, // No body is needed for this endpoint
+          {
+            headers: {
+              Authorization: `Bearer ${auth.user?.id_token}`,
+            },
+          }
+        ),
+        sleep(MIN_DELAY_MS)
+      ]);
+      setIsRegistered(true);
+    } catch (error) {
+      console.error("Error registering user:", error);
+    } finally {
+      setIsLoading(false);
+    }
 
-  if (auth.isAuthenticated && !isLoading) {
-    return (
-      <div className="h-[100vh] sm:h-[100vh] flex justify-center items-center flex-col">
-        <HeroHeader />
-        {/* Check if user's profile is incomplete */}
-        {!isLoading && !isProfileComplete && (
-          <>
-            <div className="font-[instrument sans] bg-red-300 p-4 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300">
-              <p>Please complete your profile to register!</p>
-            </div>
-            <InteractiveButton text={"Complete Profile"} onClick={redirectToProfile} isActive={true}/>
-          </>
-        )}
-
-        {/* If user's profile is complete but not registered, allow the user to register */}
-        {!isLoading && isProfileComplete && !isRegistered && (
-          <>
-            <InteractiveButton text={"Register for Hackathon"} onClick={registerUserForHackathon} isActive={true} />
-          </>
-        )}
-
-        {/* TODO: if user's profile is complete and registered, show success label */}
-      </div>
-    );
+    console.log("User registered successfully");
   }
 
   return (
     <div className="h-[100vh] sm:h-[100vh] flex justify-center items-center flex-col">
       <HeroHeader />
-      {/* Button to redirect the user to login */}
-      <InteractiveButton text={"Register Today!"} onClick={() => auth.signinRedirect()} isActive={true} />
+
+      <AnimatePresence mode="wait">
+        {/* User is unauthenticated */}
+        {!auth.isAuthenticated && (
+          <motion.div
+            key="unauthenticated"
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            className="mt-6"
+          >
+            <InteractiveButton text={"Register Today!"} onClick={() => auth.signinRedirect()} isActive={true} />
+          </motion.div>
+        )}
+
+        {/* Loading skeleton */}
+        {auth.isAuthenticated && uiState === "loading" && (
+          <motion.div
+            key="loading"
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            aria-busy="true"
+            className="mt-6 w-full flex flex-col items-center"
+          >
+            <div className="font-sans p-10 bg-gray-200 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col items-center text-xl">
+              <p>Checking your hackathon status...</p>
+            </div>
+          </motion.div>
+        )}
+
+        {/* User needs to complete profile */}
+        {auth.isAuthenticated && uiState === "profileIncomplete" && (
+          <motion.div
+            key="profileIncomplete"
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            className="mt-6 flex flex-col items-center gap-3"
+          >
+            <div className="font-sans bg-red-300 p-4 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300">
+              <p>Please complete your profile to register!</p>
+            </div>
+            <InteractiveButton text={"Complete Profile"} onClick={redirectToProfile} isActive={true}/>
+          </motion.div>
+        )}
+
+        {/* User can register */}
+        {auth.isAuthenticated && uiState === "canRegister" && (
+          <motion.div
+            key="canRegister"
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            className="mt-6"
+          >
+            <InteractiveButton text={"Register for Kapwa Codefest!"} onClick={registerUserForHackathon} isActive={true}/>
+          </motion.div>
+        )}
+
+        {/* User is already registered */}
+        {auth.isAuthenticated && uiState === "doneOrGuest" && isProfileComplete && isRegistered && (
+          <motion.div
+            key="doneOrGuest"
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            className="mt-6"
+          >
+            <div className="font-sans bg-gradient-to-r from-[#e9a400] to-[#f9d46c] p-10 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col items-center text-xl">
+              <p>Thank you for signing up for Kapwa Codefest!</p>
+              <p>A confirmation email has been sent to {auth.user?.profile.email}.</p>
+            </div>
+          </motion.div>
+        )}
+
+      </AnimatePresence>
     </div>
-  );
+  )
 }
