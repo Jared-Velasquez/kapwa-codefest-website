@@ -2,7 +2,7 @@ import TeamProfile from "@/app/components/TeamProfile";
 
 export default function Team() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col text-white">
       <h1 className="text-[3rem] sm:text-left text-center font-[Maragsa] text-white pt-[5vh]">
         Meet the Team
       </h1>
