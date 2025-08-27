@@ -169,13 +169,13 @@ export default function ProfileTab({ authToken , isSignedIn}: { authToken : stri
                     <div className="bg-white/80 w-[80vw] px-[10vw] py-[5vh] md:py-[10vh] rounded-2xl">
                         <div className="flex justify-between">
                             <div>
-                                <h1 className="text-black text-2xl md:text-4xl py-2 md:py-5">{profile.first_name} {profile.last_name}</h1>
+                                <h1 className="text-black text-2xl md:text-4xl py-2 md:py-10">{profile.first_name} {profile.last_name}</h1>
                             </div>
                             <button onClick={onEditClick}>
                                 {isEditing ?
                                     <div className="bg-gradient-to-r from-[#e9a400] to-[#f9d46c] rounded-[40px] px-[4vw] py-[2vh] text-black cursor-pointer shadow-[0_6px_12px_rgba(0,0,0,0.25)] transition-transform duration-200 font-instrument-sans flex items-center justify-center no-underline w-fit z-10 hover:scale-[1.50] active:scale-[0.95]">
                                     <p className="text-black text-base">Save</p>
-                                </div> : <Image src={"/edit-outline.svg"} alt="Edit Profile" width={40} height={40}/> }
+                                </div> : <Image src={"/edit-outline.svg"} alt="Edit Profile" width={20} height={20}  className="w-7 md:w-10"/> }
 
                             </button>
 

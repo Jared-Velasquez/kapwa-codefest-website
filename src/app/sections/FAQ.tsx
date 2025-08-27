@@ -22,7 +22,7 @@ export default function FAQ() {
           question={"Where will this be held?"}
           answer={"This hackathon is virtual and will be held on Discord!"}
         />
-        <FaqTab question={"When/Where can I apply?"} answer={"TDB"} />
+        <FaqTab question={"When/Where can I apply?"} answer={"Click on 'Login' and complete your profile!"} />
         <FaqTab
           question={"What if I don't have a team?"}
           answer={

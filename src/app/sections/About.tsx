@@ -5,8 +5,8 @@ export default function About() {
         About
       </h1>
       <div className="w-full">
-        <div className=" flex justify-around flex-col sm:px-20 h-[70vh] bg-red gap-10">
-          <div className="flex self-center w-[80vw] xl:w-[40vw] bg-white text-black p-[5vh] xl:ml-[60vh] rounded-lg items-center">
+        <div className="flex justify-around flex-col sm:px-20 min-h-[70vh] h-auto  gap-10">
+        <div className="flex self-center w-[80vw] xl:w-[40vw] bg-white text-black p-[5vh] xl:ml-[60vh] rounded-lg items-center">
             <p className="xl:text-[1rem]">
               In celebration of Filipino History Month, we are proud to host a
               Kapwa Codefest rooted in the spirit of{" "}

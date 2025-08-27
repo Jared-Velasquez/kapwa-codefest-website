@@ -43,7 +43,7 @@ export default function Companies() {
                         {organizations.map((org, index) => (
                             <OrganizationCard key={index} org={org} />
                         ))}
-                    </Carousel>
+          </Carousel>
 
         </div>
       </div>

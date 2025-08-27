@@ -22,7 +22,7 @@ export default function Home() {
                 <section id="LandingPage" className="pt-60 sm:pt-20 relative z-10 min-h-[100vh] sm:min-h-[150vh]">
                     <LandingPage />
                 </section>
-                <section id="About" className="relative z-10 py-20 min-h-[100vh]">
+                <section id="About" className="relative z-10 py-20 ">
                     <div className="flex flex-col gap-[20vh]">
                         <About />
                         <Goals />
@@ -33,7 +33,7 @@ export default function Home() {
 
             </div>
             <div className="bg-[url(/backgrounds/schoolsBackground.png)] bg-no-repeat bg-size(auto_full) bg-cover  bg-[position:top_center]">
-                <section id="Schools" className="py-20 relative z-10 min-h-[150vh]">
+                <section id="Schools" className="py-30 md:py-20 relative z-10 min-h-[150vh]">
                     <Schools />
                 </section>
             </div>
