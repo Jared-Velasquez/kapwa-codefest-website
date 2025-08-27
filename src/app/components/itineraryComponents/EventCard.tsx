@@ -8,7 +8,7 @@ export default function EventCard({
   description?: string;
 }) {
   return (
-    <div className="flex py-5 gap-10 text-1xl md:text-2xl ">
+    <div className="flex py-5 gap-10 text-1xl md:text-2xl text-black">
       <div className="w-[40vw] sm:w-[15vw]">
         <p>{time}</p>
       </div>

@@ -5,6 +5,9 @@ import InteractiveButton from "@/app/components/InteractiveButton";
 import { useAuth } from "react-oidc-context";
 import axios from "axios";
 import { UserProfile } from "../dto/ResponseDTOs";
+import Image from "next/image";
+import Link from "next/link";
+
 
 export default function ProfileTab({ authToken , isSignedIn}: { authToken : string, isSignedIn: boolean}) {
     // Use info from the authToken to pre-fill the form. If info is null, use placeholder text.
@@ -161,27 +164,57 @@ export default function ProfileTab({ authToken , isSignedIn}: { authToken : stri
             <div className="p-10"/>
 
             <div className="bg-[url(/backgrounds/landing-foreground.png)] bg-no-repeat bg-cover sm:bg-[position:center_top] bg-[position:center_top] -my-[20vh] sm:my-[] p-[vh] sm:p-[10vh]">
-                <div className="flex flex-col justify-center items-center p-4">
-                    <div className="shadow-[4px_4px_9px_rgba(0,0,0,0.5)] p-3 flex flex-col gap-1 items-center justify-center min-h-[50vh] sm:min-h-[60vh] w-fit lg:w-fit bg-[rgb(255,255,255,0.9)] text-black rounded-lg mt-20">
-                        <div className="ml-auto"> 
-                            <button
-                            onClick={onEditClick}
-                            className="bg-gradient-to-r from-[#e5e5e5] to-[#e5e5e5] rounded-[15px] px-[15px] py-[1vh] text-black cursor-pointer shadow-[0_6px_12px_rgba(0,0,0,0.25)] transition-transform duration-200 font-instrument-sans flex items-center justify-center no-underline w-fit z-10 hover:scale-[1.05] active:scale-[0.95]] w-[20vw] absolute translate-x-[-100%] translate-y-[-100%]"
-                            >
-                                <p className="text-black text-base">✍️</p>
-                            </button>   
+                <h1 className="text-[3rem] text-center font-[Maragsa] text-black mt-[20vh] md:py-[10vh]">Profile</h1>
+                <div className="flex justify-center p-10">
+                    <div className="bg-white/80 w-[80vw] px-[10vw] py-[5vh] md:py-[10vh] rounded-2xl">
+                        <div className="flex justify-between">
+                            <div>
+                                <h1 className="text-black text-2xl md:text-4xl py-2 md:py-10">{profile.first_name} {profile.last_name}</h1>
+                            </div>
+                            <button onClick={onEditClick}>
+                                {isEditing ?
+                                    <div className="bg-gradient-to-r from-[#e9a400] to-[#f9d46c] rounded-[40px] px-[4vw] py-[2vh] text-black cursor-pointer shadow-[0_6px_12px_rgba(0,0,0,0.25)] transition-transform duration-200 font-instrument-sans flex items-center justify-center no-underline w-fit z-10 hover:scale-[1.50] active:scale-[0.95]">
+                                    <p className="text-black text-base">Save</p>
+                                </div> : <Image src={"/edit-outline.svg"} alt="Edit Profile" width={20} height={20}  className="w-7 md:w-10"/> }
+
+                            </button>
+
                         </div>
-                        <h3 className="text-[2rem] font-[Maragsa] py-3 text-center">Registration</h3>
-                        <div className="flex flex-row gap-2 p-0 items-start text-center ">
-                            <InfoForm label="First Name" formData={profile.first_name} setFormData={(value) => handleFormChange("first_name", value)} isEditing={isEditing}/>
-                            <InfoForm label="Last Name" formData={profile.last_name} setFormData={(value) => handleFormChange("last_name", value)} isEditing={isEditing}/>
+                        <div className="flex flex-col items-center justify-center min-h-[50vh] sm:min-h-[60vh] text-black rounded-lg ">
+
+                            <div className="flex md:flex-row flex-col gap-2 items-start text-center w-full">
+                                <InfoForm label="First Name" formData={profile.first_name} setFormData={(value) => handleFormChange("first_name", value)} isEditing={isEditing}/>
+                                <InfoForm label="Last Name" formData={profile.last_name} setFormData={(value) => handleFormChange("last_name", value)} isEditing={isEditing}/>
+                            </div>
+                            <InfoForm label="Discord" formData={profile.discord_username} setFormData={(value) => handleFormChange("discord_username", value)} isEditing={isEditing}/>
+                            <InfoForm label="School" formData={profile.school} setFormData={(value) => handleFormChange("school", value)} isEditing={isEditing}/>
+                            <InfoForm label="Major" formData={profile.major} setFormData={(value) => handleFormChange("major", value)} isEditing={isEditing}/>
+                            <InfoForm label="Graduation Year" formData={profile.graduation_year} setFormData={(value) => handleFormChange("graduation_year", value)} isEditing={isEditing}/>
                         </div>
-                        <InfoForm label="Discord" formData={profile.discord_username} setFormData={(value) => handleFormChange("discord_username", value)} isEditing={isEditing}/>
-                        <InfoForm label="School" formData={profile.school} setFormData={(value) => handleFormChange("school", value)} isEditing={isEditing}/>
-                        <InfoForm label="Major" formData={profile.major} setFormData={(value) => handleFormChange("major", value)} isEditing={isEditing}/>
-                        <InfoForm label="Graduation Year" formData={profile.graduation_year} setFormData={(value) => handleFormChange("graduation_year", value)} isEditing={isEditing}/>
                     </div>
                 </div>
+
+                {/*<div className="flex flex-col justify-center items-center p-4">*/}
+                {/*    <div className="shadow-[4px_4px_9px_rgba(0,0,0,0.5)] p-3 flex flex-col gap-1 items-center justify-center min-h-[50vh] sm:min-h-[60vh] w-fit lg:w-fit bg-[rgb(255,255,255,0.9)] text-black rounded-lg mt-20">*/}
+                {/*        <div className="ml-auto"> */}
+                {/*            <button*/}
+                {/*            onClick={onEditClick}*/}
+                {/*            className="bg-gradient-to-r from-[#e5e5e5] to-[#e5e5e5] rounded-[15px] px-[15px] py-[1vh] text-black cursor-pointer shadow-[0_6px_12px_rgba(0,0,0,0.25)] transition-transform duration-200 font-instrument-sans flex items-center justify-center no-underline w-fit z-10 hover:scale-[1.05] active:scale-[0.95]] w-[20vw] absolute translate-x-[-100%] translate-y-[-100%]"*/}
+                {/*            >*/}
+                {/*                <p className="text-black text-base">✍️</p>*/}
+                {/*            </button>   */}
+                {/*        </div>*/}
+                {/*        <h3 className="text-[2rem] font-[Maragsa] py-3 text-center">Registration</h3>*/}
+                {/*        <div className="flex flex-row gap-2 p-0 items-start text-center ">*/}
+                {/*            <InfoForm label="First Name" formData={profile.first_name} setFormData={(value) => handleFormChange("first_name", value)} isEditing={isEditing}/>*/}
+                {/*            <InfoForm label="Last Name" formData={profile.last_name} setFormData={(value) => handleFormChange("last_name", value)} isEditing={isEditing}/>*/}
+                {/*        </div>*/}
+                {/*        <InfoForm label="Discord" formData={profile.discord_username} setFormData={(value) => handleFormChange("discord_username", value)} isEditing={isEditing}/>*/}
+                {/*        <InfoForm label="School" formData={profile.school} setFormData={(value) => handleFormChange("school", value)} isEditing={isEditing}/>*/}
+                {/*        <InfoForm label="Major" formData={profile.major} setFormData={(value) => handleFormChange("major", value)} isEditing={isEditing}/>*/}
+                {/*        <InfoForm label="Graduation Year" formData={profile.graduation_year} setFormData={(value) => handleFormChange("graduation_year", value)} isEditing={isEditing}/>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
             </div>
         </div>
     )

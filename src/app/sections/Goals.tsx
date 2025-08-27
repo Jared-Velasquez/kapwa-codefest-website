@@ -1,6 +1,6 @@
 import GoalCard from "@/app/components/GoalCard";
 
-export default function About() {
+export default function Goals() {
   return (
     <div className="z-30">
       <h1 className="text-[3rem] text-center font-[Maragsa] text-black py-[5vh]">

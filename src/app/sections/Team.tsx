@@ -2,14 +2,14 @@ import TeamProfile from "@/app/components/TeamProfile";
 
 export default function Team() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col text-white">
       <h1 className="text-[3rem] sm:text-left text-center font-[Maragsa] text-white pt-[5vh]">
         Meet the Team
       </h1>
         <div className="justify-center overflow-y-auto overflow-x-hidden h-[70vh] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-[#C58F1B] [&::-webkit-scrollbar-thumb]:bg-[#E7DAC3] dark:[&::-webkit-scrollbar-track]:bg-[#C58F1B] dark:[&::-webkit-scrollbar-thumb]:bg-[#E7DAC3]">
             <div>
                 <h3 className="text-[2rem] font-[Maragsa] py-5">Organizers</h3>
-                <div className="flex flex-wrap justify-center overflow-x-hidden w-[90vw] md:w-[70vw] gap-x-20">
+                <div className="flex flex-wrap justify-center overflow-x-hidden w-[90vw] md:w-[70vw] gap-x-0 md:gap-x-20">
                     <TeamProfile headshot={"/headshots/AlyssaHeadshot.jpg"} name={"Alyssa Najera"} school={"Boston University"} linkedin={"https://www.linkedin.com/in/alyssanaj7571"} />
                     <TeamProfile headshot={"/headshots/BensonHeadshot.jpg"} name={"Benson Manzano"} school={"University of California Irvine"} linkedin={"https://www.linkedin.com/in/benson-manzano/"} />
                     <TeamProfile headshot={"/headshots/FaithHeadshot.jpg"} name={"Faith Rivera"} school={"University of California San Diego"} linkedin={"https://www.linkedin.com/in/faithnrivera \n"} />
@@ -23,10 +23,17 @@ export default function Team() {
 
             <div>
                 <h3 className="text-[2rem] font-[Maragsa] py-5">Designers</h3>
-                <div className="flex flex-wrap justify-center overflow-y-auto overflow-x-hidden w-[90vw] md:w-[70vw] gap-x-20">
+                <div className="flex flex-wrap justify-center overflow-x-hidden w-[90vw] md:w-[70vw] gap-x-0 md:gap-x-20">
                     <TeamProfile headshot={"/headshots/BiancaHeadshot.jpg"} name={"Bianca Cataniag"} school={"University of California Irvine"} linkedin={"https://www.linkedin.com/in/leilani-bascos-026554305/"} />
                     <TeamProfile headshot={"/headshots/LeilaniHeadshot.jpg"} name={"Leilani Bascos"} school={"University of California Irvine"} linkedin={"https://www.linkedin.com/in/bianca-cataniag"} />
                     <TeamProfile  headshot={"/headshots/EllaHeadshot.jpg"} name={"Ella Ligasan"} school={"University of California Irvine"} linkedin={"https://www.linkedin.com/in/danielle-ella-ligasan-950a91217"}/>
+                </div>
+            </div>
+            <div>
+                <h3 className="text-[2rem] font-[Maragsa] py-5">Marketing </h3>
+                <div className="flex flex-wrap justify-center overflow-x-hidden w-[90vw] md:w-[70vw] gap-x-0 md:gap-x-20">
+                    <TeamProfile headshot={"/headshots/ChristinHeadshot.jpg"} name={"Christin Sanchez"} school={"Vanderbilt University"} linkedin={"https://www.linkedin.com/in/christin-ann/"} />
+                    <TeamProfile headshot={"/headshots/JinoHeadshot.jpg"} name={"Jino Nicolas"} school={"Purdue University"} linkedin={"https://www.linkedin.com/in/jino-nicolas-684202231/"} />
                 </div>
             </div>
         </div>
