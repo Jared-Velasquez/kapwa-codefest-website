@@ -15,12 +15,12 @@ export default function InfoForm({ label, formData, setFormData, isEditing }: In
     };
 
 
-    const styling = "border p-2 rounded -h-2 w-full text-black bg-white focus:outline-none focus:ring-2 focus:ring-[#EDAB1D] placeholder:text-gray-500 " + (isEditing ? "cursor-text" : "cursor-not-allowed");
+    const styling = "border p-2 rounded w-full text-black bg-white focus:outline-none focus:ring-2 focus:ring-[#EDAB1D] placeholder:text-gray-500 " + (isEditing ? "cursor-text" : "cursor-not-allowed");
     
     return (
         <div className="w-full flex flex-col p-2 items-start text-center ">
             <label className="text-lg font-bold">{label}</label>
-            <div className="flex flex-row items-end w-full gap-0">
+            <div className="flex flex-row items-end w-full">
                  <input
                     type="text"
                     value={formData}

@@ -164,12 +164,12 @@ export default function ProfileTab({ authToken , isSignedIn}: { authToken : stri
             <div className="p-10"/>
 
             <div className="bg-[url(/backgrounds/landing-foreground.png)] bg-no-repeat bg-cover sm:bg-[position:center_top] bg-[position:center_top] -my-[20vh] sm:my-[] p-[vh] sm:p-[10vh]">
-                <h1 className="text-[3rem] text-center font-[Maragsa] text-black mt-[20vh] py-[10vh]">Profile</h1>
-                <div className="flex justify-center">
-                    <div className="bg-white/80 w-[80vw] px-[10vw] py-[10vh] rounded-2xl">
+                <h1 className="text-[3rem] text-center font-[Maragsa] text-black mt-[20vh] md:py-[10vh]">Profile</h1>
+                <div className="flex justify-center p-10">
+                    <div className="bg-white/80 w-[80vw] px-[10vw] py-[5vh] md:py-[10vh] rounded-2xl">
                         <div className="flex justify-between">
                             <div>
-                                <h1 className="text-black text-4xl py-5">{profile.first_name} {profile.last_name}</h1>
+                                <h1 className="text-black text-2xl md:text-4xl py-2 md:py-5">{profile.first_name} {profile.last_name}</h1>
                             </div>
                             <button onClick={onEditClick}>
                                 {isEditing ?
@@ -180,9 +180,9 @@ export default function ProfileTab({ authToken , isSignedIn}: { authToken : stri
                             </button>
 
                         </div>
-                        <div className="flex flex-col  items-center justify-center min-h-[50vh] sm:min-h-[60vh] text-black rounded-lg ">
+                        <div className="flex flex-col items-center justify-center min-h-[50vh] sm:min-h-[60vh] text-black rounded-lg ">
 
-                            <div className="flex flex-row gap-2 items-start text-center w-full">
+                            <div className="flex md:flex-row flex-col gap-2 items-start text-center w-full">
                                 <InfoForm label="First Name" formData={profile.first_name} setFormData={(value) => handleFormChange("first_name", value)} isEditing={isEditing}/>
                                 <InfoForm label="Last Name" formData={profile.last_name} setFormData={(value) => handleFormChange("last_name", value)} isEditing={isEditing}/>
                             </div>
