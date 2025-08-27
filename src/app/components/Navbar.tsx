@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import React, { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { useAuth } from "react-oidc-context";
 import Image from "next/image";
 
@@ -26,6 +27,7 @@ const sections = [
 export default function Navbar() {
     const auth = useAuth();
     const [currentHash, setCurrentHash] = useState('')
+    const pathname = usePathname();
     const [activeSection, setActiveSection] = useState("LandingPage");
     const [highlightStyle, setHighlightStyle] = useState({ left: 0, width: 0 });
     const navRefs = useRef<(HTMLAnchorElement | null)[]>([]);
@@ -93,6 +95,70 @@ export default function Navbar() {
     //         });
     //     }
     // }, [activeSection]);
+=======
+//         const observer = new IntersectionObserver(
+//             (entries) => {
+//                 entries.forEach((entry) => {
+//                     if (entry.isIntersecting) {
+//                         const sectionId = entry.target.id;
+//                         setActiveSection(sectionId);
+//                         window.history.replaceState(null, "", `#${sectionId}`);
+//                     }
+//                 });
+//             },
+//             { threshold: 0.1 }
+//         );
+
+
+//         const observed: Element[] = [];
+//         sections.forEach((section) => {
+//             const el = document.getElementById(section.id);
+//             if (el) {
+//                 observer.observe(el);
+//                 observed.push(el);
+//             }
+//         });
+
+//         return () => {
+//             observed.forEach((el) => observer.unobserve(el));
+//             observer.disconnect();
+//         };
+//     }, [pathname]);
+
+//     // useEffect(() => {
+//     //     const activeIndex = sections.findIndex((s) => s.id === activeSection);
+//     //     const activeEl = navRefs.current[activeIndex];
+//     //     const containerRect = navContainerRef.current?.getBoundingClientRect();
+
+//     //     if (activeEl && containerRect) {
+//     //         const { left, width } = activeEl.getBoundingClientRect();
+//     //         setHighlightStyle({
+//     //             left: left - containerRect.left,
+//     //             width,
+//     //         });
+//     //     }
+//     // }, [activeSection]);
+
+//     useEffect(() => {
+//         const update = () => {
+//             const activeIndex = sections.findIndex((s) => s.id === activeSection);
+//             const activeEl = navRefs.current[activeIndex];
+//             const containerRect = navContainerRef.current?.getBoundingClientRect();
+
+//             if (activeEl && containerRect) {
+//                 const { left, width } = activeEl.getBoundingClientRect();
+//                 setHighlightStyle({
+//                     left: left - containerRect.left,
+//                     width,
+//                 });
+//             }
+//         }
+
+//         update();
+//         window.addEventListener("resize", update);
+//         return () => window.removeEventListener("resize", update);
+//     }, [activeSection, auth.isAuthenticated, pathname]);
+// >>>>>>> main
 
     return (
         <div className="relative z-100">
@@ -113,7 +179,7 @@ export default function Navbar() {
                                 <a
                                     onClick={(e:any) => handleHashClick(e, section.label)}
                                     href={`/#${section.id}`}
-                                    className="font-sans px-[2vw] py-[1.5vh] rounded-[40px] text-black text-center block"
+                                    className="font-sans px-[2vw] py-[1.5vh] rounded-[40px] text-black text-center text-lg block"
                                 >
                                     {section.id}
                                 </a>
@@ -124,7 +190,7 @@ export default function Navbar() {
                             <li className="relative z-10">
                                 <Link
                                     href="/profile"
-                                    className="text-black font-sans px-[2vw] py-[1.5vh] rounded-[40px] block text-center"
+                                    className="text-black font-sans px-[2vw] py-[1.5vh] rounded-[40px] block text-center text-lg"
                                 >
                                     Profile
                                 </Link>
@@ -133,7 +199,7 @@ export default function Navbar() {
                             <li className="relative z-10">
                                 <div
                                     onClick={() => auth.signinRedirect()}
-                                    className="cursor-pointer text-black font-sans px-[2vw] py-[1.5vh] rounded-[40px] block text-center"
+                                    className="cursor-pointer text-black font-sans px-[2vw] py-[1.5vh] rounded-[40px] block text-center text-lg"
                                 >
                                     Login
                                 </div>
