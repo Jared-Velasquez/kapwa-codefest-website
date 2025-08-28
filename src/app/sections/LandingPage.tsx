@@ -2,7 +2,6 @@ import axios from "axios";
 import HeroHeader from "@/app/components/HeroHeader";
 import { useEffect, useMemo, useState } from "react";
 import { useAuth } from "react-oidc-context";
-import useSWR, { mutate as globalMutate } from "swr";
 import InteractiveButton from "../components/InteractiveButton";
 import { AnimatePresence, motion } from "framer-motion";
 

@@ -10,7 +10,7 @@ export default function FAQ() {
       <div className="flex flex-col lg:w-[60vw] z-10 p-5 gap-[3vh]">
         <FaqTab
           question={"What is Fil-Am History Month Hackathon?"}
-          answer={`In celebration of Filipino Heritage Month, we’re hosting a hackathon to help local Filipino businesses with any issues that they might have by providing them with software or hardware solutions.\n\n\nSome examples of what this might look like are: a custom website for a business or custom inventory management software. These examples are not exhaustive and in reality will be derived from whatever businesses we decide to help.`}
+          answer={`In celebration of Filipino Heritage Month, we're hosting a hackathon to help local Filipino businesses with any issues that they might have by providing them with software or hardware solutions.\n\n\nSome examples of what this might look like are: a custom website for a business or custom inventory management software. These examples are not exhaustive and in reality will be derived from whatever businesses we decide to help.`}
         />
         <FaqTab
           question={"When is the hackathon?"}

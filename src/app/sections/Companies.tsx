@@ -15,7 +15,7 @@ export default function Companies() {
   const org2: Org = {
     id: "2",
     name: "Toasty Polvo",
-    description: "Handcrafted in New Jersey, Toasty Polvo is proud to be a woman-owned, AAPI-led small business bringing celebration to every bite. We’re building a joyful future—one polvoron at a time.",
+    description: "Handcrafted in New Jersey, Toasty Polvo is proud to be a woman-owned, AAPI-led small business bringing celebration to every bite. We're building a joyful future—one polvoron at a time.",
     website: "https://www.toastypolvo.com/",
     img: "/OrgImages/ToastyPolvoLogo.png",
   };

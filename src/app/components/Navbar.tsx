@@ -4,7 +4,7 @@ import Link from "next/link";
 import NextImage from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
-import { useAuth } from "react-oidc-context";
+import { AuthContextProps, useAuth } from "react-oidc-context";
 
 const sections = [
     { id: "LandingPage", label: "Home" },
@@ -168,7 +168,7 @@ export default function Navbar() {
     );
 }
 
-function MobileNav({ auth, activeSection }: { auth: any; activeSection: string }) {
+function MobileNav({ auth, activeSection }: { auth: AuthContextProps; activeSection: string }) {
     const [isOpen, setIsOpen] = useState(false);
 
     // TODO: should "home" label be replaced by logo instead?

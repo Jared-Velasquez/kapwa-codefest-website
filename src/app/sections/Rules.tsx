@@ -1,9 +1,7 @@
 import Carousel from "@/app/components/Carousel";
-import Link from "next/link";
-
 
 export default function Rules() {
-  const rules: String[] =
+  const rules: string[] =
       [
           "Each team may have up to four members.",
           "You may submit only one project to this hackathon, and each project should be for a single company.",

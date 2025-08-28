@@ -1,4 +1,6 @@
-export default function DayCard({ date, children }: { date: string; children: any }){
+import React from "react";
+
+export default function DayCard({ date, children }: { date: string; children: React.ReactNode }){
     return(
             <div className="self-center flex flex-row w-[80vw] min-h-[20vh] bg-[rgb(255,255,255,0.9)] rounded-lg ">
                 <div className="w-3 bg-[#D2E9EC] rounded-l-lg"></div>

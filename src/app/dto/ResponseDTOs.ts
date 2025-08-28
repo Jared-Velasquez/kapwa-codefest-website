@@ -8,3 +8,12 @@ export interface UserProfile {
     graduation_year: string;
     is_registered: boolean;
 }
+
+export interface UpdateUserProfile {
+    first_name?: string;
+    last_name?: string;
+    discord_username?: string;
+    school?: string;
+    major?: string;
+    graduation_year?: string;
+}

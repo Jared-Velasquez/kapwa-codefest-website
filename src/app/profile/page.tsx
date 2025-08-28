@@ -1,12 +1,10 @@
 "use client";
 import {useEffect, useState} from "react";
 import InfoForm from "@/app/components/InfoForm";
-import InteractiveButton from "@/app/components/InteractiveButton";
 import { useAuth } from "react-oidc-context";
 import axios from "axios";
-import { UserProfile } from "../dto/ResponseDTOs";
+import { UpdateUserProfile, UserProfile } from "../dto/ResponseDTOs";
 import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
 
 function SkeletonLine({ className = ""}: { className?: string }) {
@@ -29,7 +27,6 @@ export default function ProfileTab({ authToken , isSignedIn}: { authToken : stri
     } as UserProfile);
     const [prevProfile, setPrevProfile] = useState({}); // Store previous profile data to compare changes
     const [isEditing, setIsEditing] = useState(false);
-    const [buttonColor, setButtonColor] = useState("bg-gradient-to-r from-[#e9a400] to-[#f9d46c]");
     const [isLoading, setIsLoading] = useState(true);
 
     const auth = useAuth();
@@ -83,7 +80,7 @@ export default function ProfileTab({ authToken , isSignedIn}: { authToken : stri
     async function updateUserProfile() {
         // Take all the non-empty fields and send them to the backend
         // If a field is null or empty, do not add it to the request body
-        const requestBody: any = {};
+        const requestBody: UpdateUserProfile = {};
         // Compare current profile with previous profile to see if there are changes
         const keys = [
             "first_name",
@@ -127,12 +124,10 @@ export default function ProfileTab({ authToken , isSignedIn}: { authToken : stri
         if (!isEditing) {
             setPrevProfile(profile); // Store the current profile data before editing
             setIsEditing(true);
-            setButtonColor("bg-gradient-to-r from-[#e9a400] to-[#f9d46c]");
         } else {
             // If the user is editing, save the changes
             updateUserProfile();
             setIsEditing(false);
-            setButtonColor("bg-gradient-to-r from-[#4caf50] to-[#81c784]");
         }
     }
 

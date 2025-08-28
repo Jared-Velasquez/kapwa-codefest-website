@@ -1,6 +1,7 @@
 import Link from 'next/link';
+import { Url } from 'url';
 
-export default function Button({text, onClick}: {text: string, onClick?: any}) {
+export default function Button({text, onClick}: {text: string, onClick: Url}) {
     return(
         <Link
             href={onClick}
