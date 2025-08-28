@@ -118,7 +118,7 @@ export default function LandingPage() {
             aria-busy="true"
             className="mt-6 w-full flex flex-col items-center"
           >
-            <div className="font-sans p-10 bg-gray-200 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col items-center text-xl">
+            <div className="font-sans p-10 bg-gray-200 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col items-center text-xl animate-pulse">
               <p>Checking your hackathon status...</p>
             </div>
           </motion.div>

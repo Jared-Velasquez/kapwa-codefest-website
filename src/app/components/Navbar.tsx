@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import NextImage from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { useAuth } from "react-oidc-context";
@@ -58,6 +59,7 @@ export default function Navbar() {
         };
     }, [pathname]);
 
+    // Check if the user is on a page other than the landing page
     useEffect(() => {
       if (pathname.startsWith("/profile")) {
         setActiveSection("profile");
@@ -108,11 +110,30 @@ export default function Navbar() {
                         {sections.map((section, i) => (
                             <li key={section.id} className="relative z-10">
                                 <Link
-                                    ref={(el) => (navRefs.current[i] = el)}
+                                    ref={(el) => { navRefs.current[i] = el; }}
                                     href={`/#${section.id}`}
                                     className="font-sans px-[2vw] py-[1.5vh] rounded-[40px] text-black text-center text-lg block"
+                                    aria-label={section.id === "LandingPage" ? "Home" : section.label}
                                 >
-                                    {section.label}
+                                    {/* If label is landing page, show logo instead */}
+                                    {section.id === "LandingPage" ? (
+                                    <>
+                                      <span aria-hidden="true" className="opacity-0 select-none">
+                                        {section.label}
+                                      </span>
+                                      <span className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                                        <NextImage
+                                          src="/Logo.svg"
+                                          alt="Kapwa Codefest Logo"
+                                          width={60}
+                                          height={36}
+                                          priority
+                                        />
+                                      </span>
+                                    </>
+                                  ) : (
+                                    section.label
+                                  )}
                                 </Link>
                             </li>
                         ))}
@@ -150,6 +171,7 @@ export default function Navbar() {
 function MobileNav({ auth, activeSection }: { auth: any; activeSection: string }) {
     const [isOpen, setIsOpen] = useState(false);
 
+    // TODO: should "home" label be replaced by logo instead?
     return (
         <>
             <div

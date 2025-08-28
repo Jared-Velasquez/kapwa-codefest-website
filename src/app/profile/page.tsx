@@ -7,7 +7,13 @@ import axios from "axios";
 import { UserProfile } from "../dto/ResponseDTOs";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
+function SkeletonLine({ className = ""}: { className?: string }) {
+    return (
+        <div className={`bg-gray-200 animate-pulse rounded-md ${className}`} />
+    );
+}
 
 export default function ProfileTab({ authToken , isSignedIn}: { authToken : string, isSignedIn: boolean}) {
     // Use info from the authToken to pre-fill the form. If info is null, use placeholder text.
@@ -42,11 +48,6 @@ export default function ProfileTab({ authToken , isSignedIn}: { authToken : stri
 
         const fetchUserProfile = async () => {
             try {
-                console.log(
-                    "Invoking endpoint",
-                    `${process.env.NEXT_PUBLIC_API_GATEWAY_INVOKE_URL}/users/${auth.user?.profile?.sub}`
-                );
-
                 setIsLoading(true);
 
                 const response = await axios.get(
@@ -58,7 +59,6 @@ export default function ProfileTab({ authToken , isSignedIn}: { authToken : stri
                     }
                 );
 
-                console.log("Get response:", response.data);
                 const profileData: UserProfile = {
                     first_name: response.data.first_name || "",
                     last_name: response.data.last_name || "",
@@ -69,25 +69,11 @@ export default function ProfileTab({ authToken , isSignedIn}: { authToken : stri
                     user_id: response.data.user_id,
                     is_registered: response.data.is_registered || false,
                 }
-                setIsLoading(false);
-
-                // response:
-                // {
-                //     "user_id": "4909894e-a0f1-70a8-2f9f-3e5d07b4ef89",
-                //     "first_name": "Jared",
-                //     "last_name": "Velasquez",
-                //     "email": "jaredvel25@ucla.edu",
-                //     "discord_username": "jvel.",
-                //     "school": "University of California, Los Angeles",
-                //     "graduation_year": null,
-                //     "major": null,
-                //     "linkedin": "https://www.linkedin.com/in/jaredvel25/",
-                //     "is_registered": true
-                // }
-
                 setProfile(profileData);
             } catch (error) {
-
+                console.error("Error fetching user profile:", error);
+            } finally {
+                setIsLoading(false);
             }
         }
 
@@ -95,8 +81,6 @@ export default function ProfileTab({ authToken , isSignedIn}: { authToken : stri
     }, [auth.isLoading, auth.isAuthenticated, auth.user?.id_token]);
 
     async function updateUserProfile() {
-        console.log("Updating user profile...");
-
         // Take all the non-empty fields and send them to the backend
         // If a field is null or empty, do not add it to the request body
         const requestBody: any = {};
@@ -118,11 +102,8 @@ export default function ProfileTab({ authToken , isSignedIn}: { authToken : stri
 
         // If no fields have changed, do not send a request
         if (Object.keys(requestBody).length === 0) {
-            console.log("No changes detected, not sending update request.");
             return;
         }
-
-        console.log("Patch request body:", requestBody);
 
         try {
             const response = await axios.patch(
@@ -166,22 +147,38 @@ export default function ProfileTab({ authToken , isSignedIn}: { authToken : stri
             <div className="bg-[url(/backgrounds/landing-foreground.png)] bg-no-repeat bg-cover sm:bg-[position:center_top] bg-[position:center_top] -my-[20vh] sm:my-[] p-[vh] sm:p-[10vh]">
                 <h1 className="text-[3rem] text-center font-[Maragsa] text-black mt-[20vh] md:py-[10vh]">Profile</h1>
                 <div className="flex justify-center p-10">
-                    <div className="bg-white/80 w-[80vw] px-[10vw] py-[5vh] md:py-[10vh] rounded-2xl">
+                    <div className="bg-white/80 w-[80vw] px-[10vw] py-[5vh] md:py-[10vh] rounded-2xl" aria-busy={isLoading}>
                         <div className="flex justify-between">
-                            <div>
-                                <h1 className="text-black text-2xl md:text-4xl py-2 md:py-10">{profile.first_name} {profile.last_name}</h1>
-                            </div>
-                            <button onClick={onEditClick}>
-                                {isEditing ?
-                                    <div className="bg-gradient-to-r from-[#e9a400] to-[#f9d46c] rounded-[40px] px-[4vw] py-[2vh] text-black cursor-pointer shadow-[0_6px_12px_rgba(0,0,0,0.25)] transition-transform duration-200 font-instrument-sans flex items-center justify-center no-underline w-fit z-10 hover:scale-[1.50] active:scale-[0.95]">
-                                    <p className="text-black text-base">Save</p>
-                                </div> : <Image src={"/edit-outline.svg"} alt="Edit Profile" width={20} height={20}  className="w-7 md:w-10"/> }
+                            {isLoading ? (
+                                <>
+                                    <SkeletonLine className="h-8 md:h-10 w-48 md:w-80 my-2 md:my-10" />
+                                    <SkeletonLine className="h-10 w-10 rounded-full my-2 md:my-10" />
+                                </>
+                            ) : (
+                                <>
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 6 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -6 }}
+                                    >
+                                        <h1 className="text-black text-2xl md:text-4xl py-2 md:py-10">{profile.first_name} {profile.last_name}</h1>
+                                    </motion.div>
+                                    <motion.button 
+                                        onClick={onEditClick}
+                                        initial={{ opacity: 0, y: 6 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -6 }}
+                                    >
+                                        {isEditing ?
+                                            <div className="bg-gradient-to-r from-[#e9a400] to-[#f9d46c] rounded-[40px] px-[2.5vw] py-[2vh] text-black cursor-pointer shadow-[0_6px_12px_rgba(0,0,0,0.25)] transition-transform duration-200 font-sans flex items-center justify-center no-underline w-fit z-10 hover:scale-[1.05] active:scale-[0.95]">
+                                            <p className="text-black text-base text-xl">Save</p>
+                                        </div> : <Image src={"/edit-outline.svg"} alt="Edit Profile" width={20} height={20}  className="w-7 md:w-10 cursor-pointer"/> }
 
-                            </button>
-
+                                    </motion.button>
+                                </>
+                            )}
                         </div>
-                        <div className="flex flex-col items-center justify-center min-h-[50vh] sm:min-h-[60vh] text-black rounded-lg ">
-
+                        <div className="flex flex-col items-center justify-center min-h-[50vh] sm:min-h-[60vh] text-black rounded-lg">
                             <div className="flex md:flex-row flex-col gap-2 items-start text-center w-full">
                                 <InfoForm label="First Name" formData={profile.first_name} setFormData={(value) => handleFormChange("first_name", value)} isEditing={isEditing}/>
                                 <InfoForm label="Last Name" formData={profile.last_name} setFormData={(value) => handleFormChange("last_name", value)} isEditing={isEditing}/>
@@ -193,30 +190,7 @@ export default function ProfileTab({ authToken , isSignedIn}: { authToken : stri
                         </div>
                     </div>
                 </div>
-
-                {/*<div className="flex flex-col justify-center items-center p-4">*/}
-                {/*    <div className="shadow-[4px_4px_9px_rgba(0,0,0,0.5)] p-3 flex flex-col gap-1 items-center justify-center min-h-[50vh] sm:min-h-[60vh] w-fit lg:w-fit bg-[rgb(255,255,255,0.9)] text-black rounded-lg mt-20">*/}
-                {/*        <div className="ml-auto"> */}
-                {/*            <button*/}
-                {/*            onClick={onEditClick}*/}
-                {/*            className="bg-gradient-to-r from-[#e5e5e5] to-[#e5e5e5] rounded-[15px] px-[15px] py-[1vh] text-black cursor-pointer shadow-[0_6px_12px_rgba(0,0,0,0.25)] transition-transform duration-200 font-instrument-sans flex items-center justify-center no-underline w-fit z-10 hover:scale-[1.05] active:scale-[0.95]] w-[20vw] absolute translate-x-[-100%] translate-y-[-100%]"*/}
-                {/*            >*/}
-                {/*                <p className="text-black text-base">✍️</p>*/}
-                {/*            </button>   */}
-                {/*        </div>*/}
-                {/*        <h3 className="text-[2rem] font-[Maragsa] py-3 text-center">Registration</h3>*/}
-                {/*        <div className="flex flex-row gap-2 p-0 items-start text-center ">*/}
-                {/*            <InfoForm label="First Name" formData={profile.first_name} setFormData={(value) => handleFormChange("first_name", value)} isEditing={isEditing}/>*/}
-                {/*            <InfoForm label="Last Name" formData={profile.last_name} setFormData={(value) => handleFormChange("last_name", value)} isEditing={isEditing}/>*/}
-                {/*        </div>*/}
-                {/*        <InfoForm label="Discord" formData={profile.discord_username} setFormData={(value) => handleFormChange("discord_username", value)} isEditing={isEditing}/>*/}
-                {/*        <InfoForm label="School" formData={profile.school} setFormData={(value) => handleFormChange("school", value)} isEditing={isEditing}/>*/}
-                {/*        <InfoForm label="Major" formData={profile.major} setFormData={(value) => handleFormChange("major", value)} isEditing={isEditing}/>*/}
-                {/*        <InfoForm label="Graduation Year" formData={profile.graduation_year} setFormData={(value) => handleFormChange("graduation_year", value)} isEditing={isEditing}/>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
             </div>
         </div>
     )
 }
-
