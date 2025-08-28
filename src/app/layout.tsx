@@ -1,6 +1,7 @@
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import { CognitoProvider } from "@/app/auth/CognitoProvider";
+import { Toaster } from "sonner";
 
 export default function RootLayout({
   children,
@@ -18,6 +19,7 @@ export default function RootLayout({
           <Navbar />
 
           {children}
+          <Toaster richColors position="bottom-center" />
         </CognitoProvider>
       </body>
     </html>

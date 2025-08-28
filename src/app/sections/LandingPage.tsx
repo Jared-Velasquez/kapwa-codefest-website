@@ -41,7 +41,6 @@ export default function LandingPage() {
           sleep(MIN_DELAY_MS)
         ]);
 
-        console.log("Get response:", res.data.is_complete, res.data.is_registered);
         setIsProfileComplete(res.data.is_complete);
         setIsRegistered(res.data.is_registered);
       } catch (error) {
