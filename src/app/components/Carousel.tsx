@@ -1,11 +1,17 @@
 import { useState, useEffect } from "react"
 import { ChevronLeft, ChevronRight } from "react-feather"
 
+type CarouselProps = {
+    children: React.ReactNode[]
+    autoSlide?: boolean
+    autoSlideInterval?: number
+}
+
 export default function Carousel({
                                      children: slides,
                                      autoSlide = false,
                                      autoSlideInterval = 3000,
-                                 } ) {
+                                 }: CarouselProps) {
     const [curr, setCurr] = useState(0)
 
     const prev = () =>
