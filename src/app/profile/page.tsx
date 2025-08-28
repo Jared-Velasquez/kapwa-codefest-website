@@ -1,6 +1,6 @@
 "use client";
 import {useEffect, useState} from "react";
-import InfoForm from "@/app/components/InfoForm";
+import InfoForm, { InfoFormProps } from "@/app/components/InfoForm";
 import { useAuth } from "react-oidc-context";
 import axios from "axios";
 import { UpdateUserProfile, UserProfile } from "../dto/ResponseDTOs";
@@ -9,7 +9,38 @@ import { motion } from "framer-motion";
 
 function SkeletonLine({ className = ""}: { className?: string }) {
     return (
-        <div className={`bg-gray-200 animate-pulse rounded-md ${className}`} />
+        <div className={`bg-gray-300 animate-pulse rounded-md ${className}`} />
+    );
+}
+
+function SkeletonInfoForm() {
+    return (
+        <div className="w-full flex flex-col p-2 items-start text-center">
+            <div className="h-5 w-24 mb-2 bg-gray-300 rounded animate-pulse" />
+
+            {/* Input line + right-side icon area */}
+            <div className="flex flex-row items-end w-full gap-2">
+                <div className="h-10 w-full bg-gray-300 rounded border border-gray-300 animate-pulse" />
+            </div>
+        </div>
+    );
+}
+
+// Combine isLoading
+function InfoFormWithLoading({ isLoading, ...props }: { isLoading: boolean } & InfoFormProps) {
+    if (isLoading) {
+        return <SkeletonInfoForm />;
+    }
+
+    return (
+        <motion.div
+            className="w-full md:flex-1"
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+        >
+            <InfoForm {...props} />
+        </motion.div>
     );
 }
 
@@ -173,13 +204,57 @@ export default function ProfileTab() {
                         </div>
                         <div className="flex flex-col items-center justify-center min-h-[50vh] sm:min-h-[60vh] text-black rounded-lg">
                             <div className="flex md:flex-row flex-col gap-2 items-start text-center w-full">
-                                <InfoForm label="First Name" formData={profile.first_name} setFormData={(value) => handleFormChange("first_name", value)} isEditing={isEditing} required/>
-                                <InfoForm label="Last Name" formData={profile.last_name} setFormData={(value) => handleFormChange("last_name", value)} isEditing={isEditing} required/>
+                                <InfoFormWithLoading
+                                    isLoading={isLoading}
+                                    label="First Name"
+                                    formData={profile.first_name}
+                                    setFormData={(value) => handleFormChange("first_name", value)}
+                                    isEditing={isEditing}
+                                    required
+                                />
+                                <InfoFormWithLoading
+                                    isLoading={isLoading}
+                                    label="Last Name"
+                                    formData={profile.last_name}
+                                    setFormData={(value) => handleFormChange("last_name", value)}
+                                    isEditing={isEditing}
+                                    required
+                                />
                             </div>
-                            <InfoForm label="Discord" formData={profile.discord_username} setFormData={(value) => handleFormChange("discord_username", value)} isEditing={isEditing} required/>
-                            <InfoForm label="School" formData={profile.school} setFormData={(value) => handleFormChange("school", value)} isEditing={isEditing}/>
-                            <InfoForm label="Major" formData={profile.major} setFormData={(value) => handleFormChange("major", value)} isEditing={isEditing}/>
-                            <InfoForm label="Graduation Year" formData={profile.graduation_year} setFormData={(value) => handleFormChange("graduation_year", value)} isEditing={isEditing}/>
+                            <div className="flex flex-col w-full space-y-2">
+                                <InfoFormWithLoading
+                                    isLoading={isLoading}
+                                    label="Discord"
+                                    formData={profile.discord_username}
+                                    setFormData={(value) => handleFormChange("discord_username", value)}
+                                    isEditing={isEditing}
+                                    required
+                                />
+                                <InfoFormWithLoading
+                                    isLoading={isLoading}
+                                    label="School"
+                                    formData={profile.school}
+                                    setFormData={(value) => handleFormChange("school", value)}
+                                    isEditing={isEditing}
+                                    required
+                                />
+                                <InfoFormWithLoading
+                                    isLoading={isLoading}
+                                    label="Major"
+                                    formData={profile.major}
+                                    setFormData={(value) => handleFormChange("major", value)}
+                                    isEditing={isEditing}
+                                    required
+                                />
+                                <InfoFormWithLoading
+                                    isLoading={isLoading}
+                                    label="Graduation Year"
+                                    formData={profile.graduation_year}
+                                    setFormData={(value) => handleFormChange("graduation_year", value)}
+                                    isEditing={isEditing}
+                                    required
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 "use client";
 import { toast } from "sonner";
 
-type InfoFormProps = {
+export type InfoFormProps = {
   label: string;
   formData: string;
   setFormData: (formData: string) => void;
