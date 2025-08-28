@@ -26,6 +26,24 @@ function SkeletonInfoForm() {
     );
 }
 
+// Combine isLoading
+function InfoFormWithLoading({ isLoading, ...props }: { isLoading: boolean } & InfoFormProps) {
+    if (isLoading) {
+        return <SkeletonInfoForm />;
+    }
+
+    return (
+        <motion.div
+            className="w-full md:flex-1"
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+        >
+            <InfoForm {...props} />
+        </motion.div>
+    );
+}
+
 export default function ProfileTab() {
     // Use info from the authToken to pre-fill the form. If info is null, use placeholder text.
     const [profile, setProfile] = useState({
@@ -186,80 +204,56 @@ export default function ProfileTab() {
                         </div>
                         <div className="flex flex-col items-center justify-center min-h-[50vh] sm:min-h-[60vh] text-black rounded-lg">
                             <div className="flex md:flex-row flex-col gap-2 items-start text-center w-full">
-                                {isLoading ? (
-                                        <SkeletonInfoForm />
-                                    ) : (
-                                        <motion.div
-                                            className="w-full md:flex-1"
-                                            initial={{ opacity: 0, y: 6 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            exit={{ opacity: 0, y: -6 }}
-                                        >
-                                            <InfoForm label="First Name" formData={profile.first_name} setFormData={(value) => handleFormChange("first_name", value)} isEditing={isEditing} required/>
-                                        </motion.div>
-                                    )}
-                                    {isLoading ? (
-                                        <SkeletonInfoForm />
-                                    ) : (
-                                        <motion.div
-                                            className="w-full md:flex-1"
-                                            initial={{ opacity: 0, y: 6 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            exit={{ opacity: 0, y: -6 }}
-                                        >
-                                            <InfoForm label="Last Name" formData={profile.last_name} setFormData={(value) => handleFormChange("last_name", value)} isEditing={isEditing} required/>
-                                        </motion.div>
-                                    )}
-                                </div>
-                                <div className="flex flex-col w-full space-y-2">
-                                    {isLoading ? (
-                                    <SkeletonInfoForm />
-                                ) : (
-                                    <motion.div
-                                        className="w-full md:flex-1"
-                                        initial={{ opacity: 0, y: 6 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -6 }}
-                                    >
-                                        <InfoForm label="Discord" formData={profile.discord_username} setFormData={(value) => handleFormChange("discord_username", value)} isEditing={isEditing} required/>
-                                    </motion.div>
-                                )}
-                                {isLoading ? (
-                                    <SkeletonInfoForm />
-                                ) : (
-                                    <motion.div
-                                        className="w-full md:flex-1"
-                                        initial={{ opacity: 0, y: 6 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -6 }}
-                                    >
-                                        <InfoForm label="School" formData={profile.school} setFormData={(value) => handleFormChange("school", value)} isEditing={isEditing} />
-                                    </motion.div>
-                                )}
-                                {isLoading ? (
-                                    <SkeletonInfoForm />
-                                ) : (
-                                    <motion.div
-                                        className="w-full md:flex-1"
-                                        initial={{ opacity: 0, y: 6 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -6 }}
-                                    >
-                                        <InfoForm label="Major" formData={profile.major} setFormData={(value) => handleFormChange("major", value)} isEditing={isEditing}/>
-                                    </motion.div>
-                                )}
-                                {isLoading ? (
-                                    <SkeletonInfoForm />
-                                ) : (
-                                    <motion.div
-                                        className="w-full md:flex-1"
-                                        initial={{ opacity: 0, y: 6 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -6 }}
-                                    >
-                                        <InfoForm label="Graduation Year" formData={profile.graduation_year} setFormData={(value) => handleFormChange("graduation_year", value)} isEditing={isEditing}/>
-                                    </motion.div>
-                                )}
+                                <InfoFormWithLoading
+                                    isLoading={isLoading}
+                                    label="First Name"
+                                    formData={profile.first_name}
+                                    setFormData={(value) => handleFormChange("first_name", value)}
+                                    isEditing={isEditing}
+                                    required
+                                />
+                                <InfoFormWithLoading
+                                    isLoading={isLoading}
+                                    label="Last Name"
+                                    formData={profile.last_name}
+                                    setFormData={(value) => handleFormChange("last_name", value)}
+                                    isEditing={isEditing}
+                                    required
+                                />
+                            </div>
+                            <div className="flex flex-col w-full space-y-2">
+                                <InfoFormWithLoading
+                                    isLoading={isLoading}
+                                    label="Discord"
+                                    formData={profile.discord_username}
+                                    setFormData={(value) => handleFormChange("discord_username", value)}
+                                    isEditing={isEditing}
+                                    required
+                                />
+                                <InfoFormWithLoading
+                                    isLoading={isLoading}
+                                    label="School"
+                                    formData={profile.school}
+                                    setFormData={(value) => handleFormChange("school", value)}
+                                    isEditing={isEditing}
+                                    required
+                                />
+                                <InfoFormWithLoading
+                                    isLoading={isLoading}
+                                    label="Major"
+                                    formData={profile.major}
+                                    setFormData={(value) => handleFormChange("major", value)}
+                                    isEditing={isEditing}
+                                    required
+                                />
+                                <InfoFormWithLoading
+                                    isLoading={isLoading}
+                                    label="Graduation Year"
+                                    formData={profile.graduation_year}
+                                    setFormData={(value) => handleFormChange("graduation_year", value)}
+                                    isEditing={isEditing}
+                                    required
+                                />
                             </div>
                         </div>
                     </div>
