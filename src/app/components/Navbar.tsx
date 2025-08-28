@@ -1,217 +1,218 @@
 "use client";
 
 import Link from "next/link";
-import NextImage from "next/image";
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { useAuth } from "react-oidc-context";
 
-const sectionDefs = [
-  { key: "LandingPage", label: "Home", href: "/#LandingPage" },
-  { key: "About",       label: "About", href: "/#About" },
-  { key: "Schools",     label: "Schools", href: "/#Schools" },
-  { key: "FAQ",         label: "FAQ", href: "/#FAQ" },
-  { key: "Prizes",      label: "Prizes", href: "/#Prizes" },
-  { key: "Rules",       label: "Rules", href: "/#Rules" },
-  { key: "Itinerary",   label: "Itinerary", href: "/#Itinerary" },
-  { key: "Team",        label: "Team", href: "/#Team" },
+const sections = [
+    { id: "LandingPage", label: "Home" },
+    { id: "About", label: "About" },
+    { id: "Schools", label: "Schools" },
+    { id: "FAQ", label: "FAQ" },
+    { id: "Prizes", label: "Prizes" },
+    { id: "Rules", label: "Rules" },
+    { id: "Itinerary", label: "Itinerary" },
+    { id: "Team", label: "Team" },
 ];
 
 export default function Navbar() {
-  const auth = useAuth();
-  const pathname = usePathname();
+    const auth = useAuth();
+    const pathname = usePathname();
 
-  const tabs = useMemo(() => {
-    const base = [...sectionDefs];
-    if (auth.isAuthenticated) {
-      base.push({ key: "profile", label: "Profile", href: "/profile" });
-    }
-    return base;
-  }, [auth.isAuthenticated]);
+    const [activeSection, setActiveSection] = useState("LandingPage");
+    const [highlightStyle, setHighlightStyle] = useState({ left: 0, width: 0 });
+    const navRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+    const profileRef = useRef<HTMLAnchorElement | null>(null);
+    const navContainerRef = useRef<HTMLUListElement | null>(null);
 
-  const [activeKey, setActiveKey] = useState<string>("LandingPage");
-  const [highlightStyle, setHighlightStyle] = useState({ left: 0, width: 0 });
+    useEffect(() => {
+        if (pathname !== "/") return;
 
-  const navRefs = useRef<(HTMLAnchorElement | null)[]>([]);
-  const navContainerRef = useRef<HTMLUListElement | null>(null);
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const sectionId = entry.target.id;
+                        setActiveSection(sectionId);
+                        window.history.replaceState(null, "", `#${sectionId}`);
+                    }
+                });
+            },
+            { threshold: 0.1 }
+        );
 
-  useEffect(() => {
-    const onHome = pathname === "/";
-    if (!onHome) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const id = entry.target.id; // matches section key
-            setActiveKey(id);
-            window.history.replaceState(null, "", `#${id}`);
-          }
+        const observed: Element[] = [];
+        sections.forEach((section) => {
+            const el = document.getElementById(section.id);
+            if (el) {
+                observer.observe(el);
+                observed.push(el);
+            }
         });
-      },
-      { threshold: 0.1 }
+
+        return () => {
+            observed.forEach((el) => observer.unobserve(el));
+            observer.disconnect();
+        };
+    }, [pathname]);
+
+    useEffect(() => {
+      if (pathname.startsWith("/profile")) {
+        setActiveSection("profile");
+      } else if (activeSection === "profile" && pathname !== "/") {
+        setActiveSection("LandingPage");
+      }
+    }, [pathname]);
+
+    useEffect(() => {
+      const update = () => {
+        const containerRect = navContainerRef.current?.getBoundingClientRect();
+
+        // choose the active element: one of the section links or the Profile link
+        const sectionIndex = sections.findIndex((s) => s.id === activeSection);
+        const activeEl =
+          activeSection === "profile"
+            ? profileRef.current
+            : navRefs.current[sectionIndex] || null;
+
+        if (activeEl && containerRect) {
+          const { left, width } = activeEl.getBoundingClientRect();
+          setHighlightStyle({ left: left - containerRect.left, width });
+        }
+      };
+
+      update();
+      window.addEventListener("resize", update);
+      return () => window.removeEventListener("resize", update);
+    }, [activeSection, auth.isAuthenticated, pathname]);
+
+    return (
+        <div className="relative">
+            {/* Desktop Nav */}
+            <div className="hidden fixed top-0 right-0 left-0 z-100 md:block">
+                <nav className="bg-white w-[90vw] p-[1.5vh_1vw] rounded-[30px] my-[4vh] mx-auto shadow-md scroll-smooth">
+                    <ul
+                        ref={navContainerRef}
+                        className="flex flex-row justify-around relative"
+                    >
+                        <div
+                            className="absolute top-1/2 -translate-y-1/2 h-[70%] bg-[#EDAB1D] rounded-[40px] transition-all duration-300 ease-in-out"
+                            style={{
+                                left: `${highlightStyle.left}px`,
+                                width: `${highlightStyle.width}px`,
+                            }}
+                        />
+
+                        {sections.map((section, i) => (
+                            <li key={section.id} className="relative z-10">
+                                <Link
+                                    ref={(el) => (navRefs.current[i] = el)}
+                                    href={`/#${section.id}`}
+                                    className="font-sans px-[2vw] py-[1.5vh] rounded-[40px] text-black text-center text-lg block"
+                                >
+                                    {section.label}
+                                </Link>
+                            </li>
+                        ))}
+
+                        {auth.isAuthenticated ? (
+                            <li className="relative z-10">
+                                <Link
+                                    ref={profileRef}
+                                    href="/profile"
+                                    className="text-black font-sans px-[2vw] py-[1.5vh] rounded-[40px] block text-center text-lg"
+                                >
+                                    Profile
+                                </Link>
+                            </li>
+                        ) : (
+                            <li className="relative z-10">
+                                <div
+                                    onClick={() => auth.signinRedirect()}
+                                    className="cursor-pointer text-black font-sans px-[2vw] py-[1.5vh] rounded-[40px] block text-center text-lg"
+                                >
+                                    Login
+                                </div>
+                            </li>
+                        )}
+                    </ul>
+                </nav>
+            </div>
+
+            {/* Mobile Nav */}
+            <MobileNav auth={auth} activeSection={activeSection} />
+        </div>
     );
-
-    const observed: Element[] = [];
-    sectionDefs.forEach((s) => {
-      const el = document.getElementById(s.key);
-      if (el) {
-        observer.observe(el);
-        observed.push(el);
-      }
-    });
-
-    return () => {
-      observed.forEach((el) => observer.unobserve(el));
-      observer.disconnect();
-    };
-  }, [pathname]);
-
-  useEffect(() => {
-    if (pathname.startsWith("/profile")) {
-      setActiveKey("profile");
-      return;
-    }
-    if (pathname === "/") {
-      const hash = typeof window !== "undefined" ? window.location.hash.slice(1) : "";
-      if (hash && sectionDefs.some((s) => s.key === hash)) setActiveKey(hash);
-    }
-  }, [pathname]);
-
-  useEffect(() => {
-    const update = () => {
-      const idx = tabs.findIndex((t) => t.key === activeKey);
-      const activeEl = navRefs.current[idx];
-      const containerRect = navContainerRef.current?.getBoundingClientRect();
-      if (activeEl && containerRect) {
-        const { left, width } = activeEl.getBoundingClientRect();
-        setHighlightStyle({ left: left - containerRect.left, width });
-      }
-    };
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, [activeKey, tabs, auth.isAuthenticated, pathname]);
-
-  return (
-    <div className="relative">
-      <div className="hidden fixed top-0 right-0 left-0 z-100 md:block">
-        <nav className="bg-white w-[90vw] p-[1.5vh_1vw] rounded-[30px] my-[4vh] mx-auto shadow-md scroll-smooth">
-          <ul
-            ref={navContainerRef}
-            className="flex items-center justify-center gap-x-10 relative"  // ← centered with equal gaps
-          >
-            <div
-              className="absolute top-1/2 -translate-y-1/2 h-[70%] bg-[#EDAB1D] rounded-[40px] transition-all duration-300 ease-in-out"
-              style={{ left: `${highlightStyle.left}px`, width: `${highlightStyle.width}px` }}
-            />
-
-            {tabs.map((tab, i) => (
-              <li key={tab.key} className="relative z-10">
-                <Link
-                  href={tab.href}
-                  onClick={() => setActiveKey(tab.key)}
-                  ref={(el) => (navRefs.current[i] = el)}
-                  className={
-                    tab.key === "LandingPage"
-                      ? // keep some horizontal padding so the group balances visually
-                        "inline-flex items-center justify-center px-6 py-[1.5vh] rounded-[40px] text-black text-center"
-                      : "font-sans px-6 py-[1.5vh] rounded-[40px] text-black text-center text-lg block"
-                  }
-                  aria-label={tab.key === "LandingPage" ? "Home" : undefined}
-                >
-                  {tab.key === "LandingPage" ? (
-                    <span className="inline-flex items-center justify-center">
-                      {/* use your NextImage alias if needed */}
-                      <img src="/Logo.svg" alt="Home" className="h-7 w-auto" />
-                      <span className="sr-only">Home</span>
-                    </span>
-                  ) : (
-                    tab.label
-                  )}
-                </Link>
-              </li>
-            ))}
-
-            {!auth.isAuthenticated && (
-              <li className="relative z-10">
-                <div
-                  onClick={() => auth.signinRedirect()}
-                  className="cursor-pointer font-sans px-6 py-[1.5vh] rounded-[40px] text-black text-center text-lg"
-                >
-                  Login
-                </div>
-              </li>
-            )}
-          </ul>
-
-        </nav>
-      </div>
-
-      <MobileNav auth={auth} activeKey={activeKey} />
-    </div>
-  );
 }
 
-function MobileNav({ auth, activeKey }: { auth: any; activeKey: string }) {
-  const [isOpen, setIsOpen] = useState(false);
-  return (
-    <>
-      <div
-        className={`flex items-center justify-center fixed w-full h-dvh bg-white z-[99] top-0 left-0 overflow-hidden transition-all duration-300 ease-in-out ${
-          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
-      >
-        <nav>
-          <ul className="flex flex-col gap-5 text-center">
-            {sectionDefs.map((s) => (
-              <li key={s.key}>
-                <Link
-                  href={s.href}
-                  onClick={() => setIsOpen(false)}
-                  className={`font-sans ${
-                    activeKey === s.key
-                      ? "text-black font-bold bg-[#EDAB1D] rounded-[40px] px-[2vw] py-[1vh]"
-                      : "text-black"
-                  }`}
-                >
-                  {s.label}
-                </Link>
-              </li>
-            ))}
-            {auth.isAuthenticated ? (
-              <li>
-                <Link href="/profile" onClick={() => setIsOpen(false)} className="text-black font-sans">
-                  Profile
-                </Link>
-              </li>
-            ) : (
-              <li onClick={() => auth.signinRedirect()} className="cursor-pointer text-black font-sans">
-                Login
-              </li>
-            )}
-          </ul>
-        </nav>
-      </div>
+function MobileNav({ auth, activeSection }: { auth: any; activeSection: string }) {
+    const [isOpen, setIsOpen] = useState(false);
 
-      <div className="flex pt-5 px-5 justify-end w-full fixed z-[100] md:hidden">
-        <button className="cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className={`size-8 ${isOpen ? "rotate-90" : ""} transition duration-300`}
+    return (
+        <>
+            <div
+                className={`flex items-center justify-center fixed w-full h-dvh bg-white z-[99] top-0 left-0 overflow-hidden transition-all duration-300 ease-in-out ${
+                    isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+                }`}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-              />
-            </svg>
-        </button>
-      </div>
-    </>
-  );
+                <nav>
+                    <ul className="flex flex-col gap-5 text-center">
+                        {sections.map((section) => (
+                            <li key={section.id}>
+                                <Link
+                                    href={`/#${section.id}`}
+                                    onClick={() => setIsOpen(false)}
+                                    className={`font-sans ${
+                                        activeSection === section.id
+                                            ? "text-black font-bold bg-[#EDAB1D] rounded-[40px] px-[2vw] py-[1vh]"
+                                            : "text-black"
+                                    }`}
+                                >
+                                    {section.label}
+                                </Link>
+                            </li>
+                        ))}
+                        {auth.isAuthenticated ? (
+                            <li>
+                                <Link
+                                    href="/profile"
+                                    onClick={() => setIsOpen(false)}
+                                    className="text-black font-sans"
+                                >
+                                    Profile
+                                </Link>
+                            </li>
+                        ) : (
+                            <li
+                                onClick={() => auth.signinRedirect()}
+                                className="cursor-pointer text-black font-sans"
+                            >
+                                Login
+                            </li>
+                        )}
+                    </ul>
+                </nav>
+            </div>
+            <div className="flex pt-5 px-5 justify-end w-full fixed z-[100] md:hidden">
+                <button className="cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className={`size-8 ${isOpen ? "rotate-90" : ""} transition duration-300`}
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                        />
+                    </svg>
+                </button>
+            </div>
+        </>
+    );
 }
