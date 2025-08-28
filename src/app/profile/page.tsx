@@ -32,8 +32,6 @@ export default function ProfileTab() {
     const auth = useAuth();
     // const router = useRouter();
 
-    console.log("Profile page");
-
     useEffect(() => {
         if (!auth.isLoading && !auth.isAuthenticated) {
             window.location.href = "/"; // Redirect to home if not authenticated

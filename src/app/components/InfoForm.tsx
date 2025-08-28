@@ -1,4 +1,5 @@
 "use client";
+import { toast } from "sonner";
 
 type InfoFormProps = {
   label: string;
@@ -11,6 +12,11 @@ type InfoFormProps = {
 export default function InfoForm({ label, formData, setFormData, isEditing, required = false }: InfoFormProps) {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!isEditing) return; // Prevent changes if not in editing mode
+        const newValue = e.target.value;
+
+        // if required, previously filled, and the user cleared it, send a toast
+        if (required && formData.trim().length > 0 && newValue.trim().length === 0)
+            toast.error(`You can't input an empty ${label.toLowerCase()} once populated.`);
         setFormData(e.target.value);
     };
 
@@ -35,8 +41,6 @@ export default function InfoForm({ label, formData, setFormData, isEditing, requ
                 </p>
                 </div>
             </div>
-
-
         </div>
     );
 }
