@@ -2,6 +2,7 @@ import axios from "axios";
 import HeroHeader from "@/app/components/HeroHeader";
 import { useEffect, useMemo, useState } from "react";
 import { useAuth } from "react-oidc-context";
+import Image from "next/image";
 import InteractiveButton from "../components/InteractiveButton";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -131,7 +132,7 @@ export default function LandingPage() {
             exit={{ opacity: 0, y: -6 }}
             className="mt-6 flex flex-col items-center gap-3"
           >
-            <div className="font-sans bg-red-300 p-4 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300">
+            <div className="text-black font-sans bg-red-300 p-4 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300">
               <p>Please complete your profile to register!</p>
             </div>
             <InteractiveButton text={"Complete Profile"} onClick={redirectToProfile} isActive={true}/>
@@ -160,9 +161,22 @@ export default function LandingPage() {
             exit={{ opacity: 0, y: -6 }}
             className="mt-6"
           >
-            <div className="font-sans bg-gradient-to-r from-[#e9a400] to-[#f9d46c] p-10 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col items-center text-xl">
-              <p>Thank you for signing up for Kapwa Codefest!</p>
-              <p>A confirmation email has been sent to {auth.user?.profile.email}.</p>
+            <div className="text-center font-sans text-black px-10 bg-gradient-to-r from-[#e9a400] to-[#f9d46c] rounded-2xl mx-5 shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col items-center text-xl">
+              <div className="pt-10">
+                <p>Thank you for signing up for Kapwa Codefest!</p>
+                <p>A confirmation email has been sent to {auth.user?.profile.email}.</p>
+              </div>
+
+              <div className="flex pb-5">
+                <a href={"https://discord.gg/HcfRNYMBXm"} target={"_blank"} className="text-center font-sans text-[#E0E3FF] bg-[#5865F2] px-10 py-5 rounded-2xl m-5 gap-2 shadow-sm cursor-pointer hover:shadow-lg transition-shadow duration-300 flex justify-around items-center text-xl ">
+                  <Image src={"/icons/discord-white-icon.svg"} alt={"disc"} width={10} height={10} className={"h-5 w-auto"}/>
+                  <p>Join our Discord</p>
+                </a>
+                <a href={"https://www.instagram.com/kapwacodefest/#"} target={"_blank"} className="text-center font-sans text-white bg-gradient-to-r from-[#8134AF] to-[#FF0069] px-10 py-5 rounded-2xl m-5 gap-2 shadow-sm cursor-pointer hover:shadow-lg transition-shadow duration-300 flex justify-around items-center text-xl">
+                  <Image src={"/icons/instagram.svg"} alt={"insta"} width={10} height={10} className={"h-5 w-auto"}/>
+                  <p>Follow our Instagram</p>
+                </a>
+              </div>
             </div>
           </motion.div>
         )}
