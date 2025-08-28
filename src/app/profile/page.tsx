@@ -13,7 +13,7 @@ function SkeletonLine({ className = ""}: { className?: string }) {
     );
 }
 
-export default function ProfileTab({ authToken , isSignedIn}: { authToken : string, isSignedIn: boolean}) {
+export default function ProfileTab() {
     // Use info from the authToken to pre-fill the form. If info is null, use placeholder text.
     const [profile, setProfile] = useState({
         first_name: "",
