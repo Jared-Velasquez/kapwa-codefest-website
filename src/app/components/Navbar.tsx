@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import NextImage from "next/image";
 import { useState, useEffect, useMemo, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { useAuth } from "react-oidc-context";
@@ -96,7 +97,10 @@ export default function Navbar() {
     <div className="relative">
       <div className="hidden fixed top-0 right-0 left-0 z-100 md:block">
         <nav className="bg-white w-[90vw] p-[1.5vh_1vw] rounded-[30px] my-[4vh] mx-auto shadow-md scroll-smooth">
-          <ul ref={navContainerRef} className="flex flex-row justify-around relative">
+          <ul
+            ref={navContainerRef}
+            className="flex items-center justify-center gap-x-10 relative"  // ← centered with equal gaps
+          >
             <div
               className="absolute top-1/2 -translate-y-1/2 h-[70%] bg-[#EDAB1D] rounded-[40px] transition-all duration-300 ease-in-out"
               style={{ left: `${highlightStyle.left}px`, width: `${highlightStyle.width}px` }}
@@ -108,9 +112,23 @@ export default function Navbar() {
                   href={tab.href}
                   onClick={() => setActiveKey(tab.key)}
                   ref={(el) => (navRefs.current[i] = el)}
-                  className="font-sans px-[2vw] py-[1.5vh] rounded-[40px] text-black text-center text-lg block"
+                  className={
+                    tab.key === "LandingPage"
+                      ? // keep some horizontal padding so the group balances visually
+                        "inline-flex items-center justify-center px-6 py-[1.5vh] rounded-[40px] text-black text-center"
+                      : "font-sans px-6 py-[1.5vh] rounded-[40px] text-black text-center text-lg block"
+                  }
+                  aria-label={tab.key === "LandingPage" ? "Home" : undefined}
                 >
-                  {tab.label}
+                  {tab.key === "LandingPage" ? (
+                    <span className="inline-flex items-center justify-center">
+                      {/* use your NextImage alias if needed */}
+                      <img src="/Logo.svg" alt="Home" className="h-7 w-auto" />
+                      <span className="sr-only">Home</span>
+                    </span>
+                  ) : (
+                    tab.label
+                  )}
                 </Link>
               </li>
             ))}
@@ -119,13 +137,14 @@ export default function Navbar() {
               <li className="relative z-10">
                 <div
                   onClick={() => auth.signinRedirect()}
-                  className="cursor-pointer text-black font-sans px-[2vw] py-[1.5vh] rounded-[40px] block text-center text-lg"
+                  className="cursor-pointer font-sans px-6 py-[1.5vh] rounded-[40px] text-black text-center text-lg"
                 >
                   Login
                 </div>
               </li>
             )}
           </ul>
+
         </nav>
       </div>
 
