@@ -6,6 +6,7 @@ import axios from "axios";
 import { UpdateUserProfile, UserProfile } from "../dto/ResponseDTOs";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import InteractiveButton from "../components/InteractiveButton";
 
 function SkeletonLine({ className = ""}: { className?: string }) {
     return (
@@ -236,7 +237,6 @@ export default function ProfileTab() {
                                     formData={profile.school}
                                     setFormData={(value) => handleFormChange("school", value)}
                                     isEditing={isEditing}
-                                    required
                                 />
                                 <InfoFormWithLoading
                                     isLoading={isLoading}
@@ -244,7 +244,6 @@ export default function ProfileTab() {
                                     formData={profile.major}
                                     setFormData={(value) => handleFormChange("major", value)}
                                     isEditing={isEditing}
-                                    required
                                 />
                                 <InfoFormWithLoading
                                     isLoading={isLoading}
@@ -252,7 +251,6 @@ export default function ProfileTab() {
                                     formData={profile.graduation_year}
                                     setFormData={(value) => handleFormChange("graduation_year", value)}
                                     isEditing={isEditing}
-                                    required
                                 />
                             </div>
                         </div>
