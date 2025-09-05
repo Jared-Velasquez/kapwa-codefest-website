@@ -189,7 +189,7 @@ export default function ProfileTab() {
                                     </motion.div>
                                     <motion.button
                                         onClick={onEditClick}
-                                        className="relative inline-flex items-center justify-center"
+                                        className="relative inline-flex items-center justify-center cursor-pointer"
                                         aria-label={isEditing ? "Save profile" : "Edit profile"}
                                         title={isEditing ? "Save profile" : "Edit profile"}
                                         initial={{ opacity: 0, y: 6 }}
