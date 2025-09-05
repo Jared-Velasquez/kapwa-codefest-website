@@ -6,7 +6,6 @@ import axios from "axios";
 import { UpdateUserProfile, UserProfile } from "../dto/ResponseDTOs";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import InteractiveButton from "../components/InteractiveButton";
 
 function SkeletonLine({ className = ""}: { className?: string }) {
     return (
