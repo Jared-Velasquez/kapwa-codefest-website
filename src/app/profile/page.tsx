@@ -187,18 +187,48 @@ export default function ProfileTab() {
                                     >
                                         <h1 className="text-black text-2xl md:text-4xl py-2 md:py-10">{profile.first_name} {profile.last_name}</h1>
                                     </motion.div>
-                                    <motion.button 
+                                    <motion.button
                                         onClick={onEditClick}
+                                        className="relative inline-flex items-center justify-center"
+                                        aria-label={isEditing ? "Save profile" : "Edit profile"}
+                                        title={isEditing ? "Save profile" : "Edit profile"}
                                         initial={{ opacity: 0, y: 6 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -6 }}
                                     >
-                                        {isEditing ?
-                                            <div className="bg-gradient-to-r from-[#e9a400] to-[#f9d46c] rounded-[40px] px-[2.5vw] py-[2vh] text-black cursor-pointer shadow-[0_6px_12px_rgba(0,0,0,0.25)] transition-transform duration-200 font-sans flex items-center justify-center no-underline w-fit z-10 hover:scale-[1.05] active:scale-[0.95]">
+                                    {isEditing ? (
+                                        <div className="bg-gradient-to-r from-[#e9a400] to-[#f9d46c] rounded-[40px] px-[2.5vw] py-[2vh] text-black cursor-pointer shadow-[0_6px_12px_rgba(0,0,0,0.25)] transition-transform duration-200 font-sans flex items-center justify-center no-underline w-fit hover:scale-[1.05] active:scale-[0.95]">
                                             <p className="text-black text-base text-xl">Save</p>
-                                        </div> : <Image src={"/edit-outline.svg"} alt="Edit Profile" width={20} height={20}  className="w-7 md:w-10 cursor-pointer"/> }
-
+                                        </div>
+                                    ) : (
+                                        <div className="relative w-12 h-12 md:w-15 md:h-15 rounded-full grid place-items-center">
+                                        {/* ring pulse */}
+                                        <motion.span
+                                            aria-hidden
+                                            className="pointer-events-none absolute inset-0 rounded-full ring-2 ring-[#EDAB1D]"
+                                            initial={{ scale: 1, opacity: 0.8 }}
+                                            animate={{ scale: [1, 1.08, 1], opacity: [0.8, 0.5, 0.8] }}
+                                            transition={{ duration: 1.8, ease: "easeInOut", repeat: Infinity }}
+                                        />
+                                        {/* gradient glow */}
+                                        <motion.span
+                                            aria-hidden
+                                            className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-r from-[#e9a400] to-[#f9d46c] opacity-60 blur-md"
+                                            initial={{ scale: 0.95, opacity: 0.45 }}
+                                            animate={{ scale: [0.95, 1.15, 0.95], opacity: [0.45, 0.7, 0.45] }}
+                                            transition={{ duration: 1.8, ease: "easeInOut", repeat: Infinity }}
+                                        />
+                                        <Image
+                                            src={"/edit-outline.svg"}
+                                            alt="Edit Profile"
+                                            width={20}
+                                            height={20}
+                                            className="w-9 h-9 md:w-12 md:h-12"
+                                        />
+                                        </div>
+                                    )}
                                     </motion.button>
+
                                 </>
                             )}
                         </div>
