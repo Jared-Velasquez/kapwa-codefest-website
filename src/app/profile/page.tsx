@@ -7,6 +7,7 @@ import { UpdateUserProfile, UserProfile } from "../dto/ResponseDTOs";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Signup from "../sections/Signup";
+import Button from "../components/Button";
 
 function SkeletonLine({ className = "" }: { className?: string }) {
   return (
@@ -316,7 +317,20 @@ export default function ProfileTab() {
             </div>
           </div>
         </div>
-        <Signup />
+        <div className="items-center flex flex-col h-[100vh]">
+            <h1 className="text-[3rem] text-center font-[Maragsa] text-black py-[5vh]">Give a Helping Hand </h1>
+            <button
+              onClick={() => {
+                window.location.href = "/";
+              }}
+            >
+                <div
+                    className="bg-gradient-to-r from-[#e9a400] to-[#f9d46c] rounded-[40px] md:px-[2vw] md:py-[2vh] px-5 py-5 text-black cursor-pointer shadow-[0_6px_12px_rgba(0,0,0,0.25)] transition-transform duration-200 font-instrument-sans font-medium flex items-center justify-center no-underline w-fit z-10 hover:scale-[1.05] active:scale-[0.95]"
+                >
+                    <p className="text-black text-base">Register Today!</p>
+                </div>
+            </button>
+        </div>
       </div>
     </div>
   );
