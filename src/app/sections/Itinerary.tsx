@@ -32,11 +32,13 @@ export default function Itinerary() {
         <DayCard date="Saturday, October 4th">
           <EventCard
             time="11 AM EST / 8 AM PST"
-            eventName="Midwest / East Coast Business Session (2 or 3)"
+            eventName="Midwest / East Coast Business Session"
+            description="Connect with businesses"
           />
           <EventCard
             time="1 PM EST / 11 AM PST"
-            eventName="West Coast Business Session (2 or 3)"
+            eventName="West Coast Business Session"
+            description="Connect with businesses"
           />
           <EventCard
             time="3 PM EST / 12 PM PST"
@@ -44,18 +46,19 @@ export default function Itinerary() {
           />
           <EventCard
             time="4-5 PM EST / 1-2 PM PST"
-            eventName="AI Hybrid Search"
-            description="Workshop hosted by Jacky Liang (AnswerHQ)"
+            eventName="Technical Interview Prep"
+            description="Workshop hosted by Luzanne Batoon (Google)"
           />
           <EventCard
             time="5-6 PM EST / 2-3 PM PST"
-            eventName="Workshop"
-            description="Details TBD"
+            eventName="Pitching your Hackathon Project and Demo"
+            description="Aliza Carpio (JLL Technologies, prev Autodesk, Intuit)"
           />
           <EventCard
             time="6-7 PM EST / 3-4 PM PST"
-            eventName="Workshop"
-            description="Details TBD"
+            eventName="How our Filipino Culture shapes our workplace attitudes (and overcoming its limitations)
+"
+            description="Kylie Taitano (Intuit)"
           />
           <EventCard
             time="7-8 PM EST / 4-5 PM PST"
@@ -80,16 +83,11 @@ export default function Itinerary() {
             time="3:30 PM EST / 12:30 PM PST"
             eventName="Devpost Final Submission is Due"
           />
-          <EventCard
-            time="5:30-7:30 PM EST / 2:30-4:30 PM PST"
-            eventName="Filipinos breaking into Tech"
-            description="Speaker Panel featuring: "
-          />
         </DayCard>
 
         {/* Last Day */}
         <DayCard date="Monday, October 6th">
-          <EventCard time="11 AM EST" eventName="Winners Anounced" />
+          <EventCard time="END OF DAY" eventName="Winners Anounced" />
         </DayCard>
       </div>
     </div>
