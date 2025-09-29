@@ -194,10 +194,22 @@ export default function LandingPage() {
                                 </div>
 
                                 <div className="flex pb-5">
-                                    {/*<a href={"https://discord.gg/HcfRNYMBXm"} target={"_blank"} className="text-center font-sans text-[#E0E3FF] bg-[#5865F2] px-10 py-5 rounded-2xl m-5 gap-2 shadow-sm cursor-pointer hover:shadow-lg transition-shadow duration-300 flex justify-around items-center text-xl ">*/}
-                                    {/*  <Image src={"/icons/discord-white-icon.svg"} alt={"disc"} width={10} height={10} className={"h-5 w-auto"}/>*/}
-                                    {/*  <p>Join our Discord</p>*/}
-                                    {/*</a>*/}
+                                    <a
+                                        href={
+                                            process.env.NEXT_PUBLIC_DISCORD_LINK
+                                        }
+                                        target={'_blank'}
+                                        className="text-center font-sans text-white bg-gradient-to-r from-[#5865F2] to-[#404EED] px-10 py-5 rounded-2xl m-5 gap-2 shadow-sm cursor-pointer hover:shadow-lg transition-shadow duration-300 flex justify-around items-center text-xl"
+                                    >
+                                        <Image
+                                            src={'/icons/discord-white-icon.svg'}
+                                            alt={'discord'}
+                                            width={10}
+                                            height={10}
+                                            className={'h-5 w-auto'}
+                                        />
+                                        <p>Join our Discord</p>
+                                    </a>
                                     <a
                                         href={
                                             'https://www.instagram.com/kapwacodefest/#'
