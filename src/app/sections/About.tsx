@@ -6,17 +6,18 @@ export default function About() {
       </h1>
       <div className="w-full">
         <div className="flex justify-around flex-col sm:px-20 min-h-[70vh] h-auto  gap-10">
-        <div className="flex self-center w-[80vw] xl:w-[40vw] bg-white text-black p-[5vh] xl:ml-[60vh] rounded-lg items-center">
-            <p className="xl:text-[1rem]">
-              In celebration of Filipino History Month, we are proud to host a
-              Kapwa Codefest rooted in the spirit of{" "}
-              <span className="font-bold">bayanihan</span> — the Filipino
-              tradition of communal unity and support. This event brings
-              together developers, designers, and problem-solvers to collaborate
-              with local Filipino-owned businesses, helping them tackle real
-              challenges through creative software and hardware solutions.
-            </p>
-          </div>
+        <div className="flex flex-col space-y-4 self-center w-[80vw] xl:w-[40vw] bg-white text-black p-[5vh] xl:ml-[60vh] rounded-lg items-center">
+          <p className="xl:text-[1rem]">
+            In celebration of Filipino History Month, we are proud to host a
+            Kapwa Codefest rooted in the spirit of{" "}
+            <span className="font-bold">bayanihan</span> — the Filipino
+            tradition of communal unity and support. This event brings
+            together developers, designers, and problem-solvers to collaborate
+            with local Filipino-owned businesses, helping them tackle real
+            challenges through creative software and hardware solutions.
+          </p>
+          <i className="xl:text-[1rem]">Participation is limited to students and professionals based in North America.</i>
+        </div>
           <div className="flex flex-col xl:self-end self-center w-[80vw] xl:w-[40vw] bg-white text-black p-[5vh] rounded-lg items-center gap-3">
             <div className="flex flex-col sm:flex-row sm:self-start sm:gap-5 gap-1 self-center">
               <h3 className="text-5xl font-[TDSulog]">Bayanihan</h3>
