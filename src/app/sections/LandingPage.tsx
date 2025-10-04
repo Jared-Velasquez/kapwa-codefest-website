@@ -98,139 +98,25 @@ export default function LandingPage() {
         <div className="h-[100vh] sm:h-[100vh] flex justify-center items-center flex-col">
             <HeroHeader />
 
-            <AnimatePresence mode="wait">
-                {/* User is unauthenticated */}
-                {!auth.isAuthenticated && (
-                    <motion.div
-                        key="unauthenticated"
-                        initial={{ opacity: 0, y: 6 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -6 }}
-                        className="mt-6"
-                    >
-                        <InteractiveButton
-                            text={'Register Today!'}
-                            onClick={() => auth.signinRedirect()}
-                            isActive={true}
-                        />
-                    </motion.div>
-                )}
-
-                {/* Loading skeleton */}
-                {auth.isAuthenticated && uiState === 'loading' && (
-                    <motion.div
-                        key="loading"
-                        initial={{ opacity: 0, y: 6 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -6 }}
-                        aria-busy="true"
-                        className="mt-6 w-full flex flex-col items-center"
-                    >
-                        <div className="text-black font-sans p-10 bg-gray-200 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col items-center text-xl animate-pulse">
-                            <p>Checking your hackathon status...</p>
-                        </div>
-                    </motion.div>
-                )}
-
-                {/* User needs to complete profile */}
-                {auth.isAuthenticated && uiState === 'profileIncomplete' && (
-                    <motion.div
-                        key="profileIncomplete"
-                        initial={{ opacity: 0, y: 6 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -6 }}
-                        className="mt-6 flex flex-col items-center gap-3"
-                    >
-                        <div className="text-black font-sans bg-red-300 p-4 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300">
-                            <p>Please complete your profile to register!</p>
-                        </div>
-                        <InteractiveButton
-                            text={'Complete Profile'}
-                            onClick={redirectToProfile}
-                            isActive={true}
-                        />
-                    </motion.div>
-                )}
-
-                {/* User can register */}
-                {auth.isAuthenticated && uiState === 'canRegister' && (
-                    <motion.div
-                        key="canRegister"
-                        initial={{ opacity: 0, y: 6 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -6 }}
-                        className="mt-6"
-                    >
-                        <InteractiveButton
-                            text={'Register for Kapwa Codefest!'}
-                            onClick={registerUserForHackathon}
-                            isActive={true}
-                        />
-                    </motion.div>
-                )}
-
-                {/* User is already registered */}
-                {auth.isAuthenticated &&
-                    uiState === 'doneOrGuest' &&
-                    isProfileComplete &&
-                    isRegistered && (
-                        <motion.div
-                            key="doneOrGuest"
-                            initial={{ opacity: 0, y: 6 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -6 }}
-                            className="mt-6"
-                        >
-                            <div className="text-center font-sans text-black px-10 bg-gradient-to-r from-[#e9a400] to-[#f9d46c] rounded-2xl mx-5 shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col items-center text-xl">
-                                <div className="pt-10">
-                                    <p>
-                                        Thank you for signing up for Kapwa
-                                        Codefest!
-                                    </p>
-                                    <p>
-                                        A confirmation email has been sent to{' '}
-                                        {auth.user?.profile.email}.
-                                    </p>
-                                </div>
-
-                                <div className="flex pb-5">
-                                    <a
-                                        href={
-                                            process.env.NEXT_PUBLIC_DISCORD_LINK
-                                        }
-                                        target={'_blank'}
-                                        className="text-center font-sans text-white bg-gradient-to-r from-[#5865F2] to-[#404EED] px-10 py-5 rounded-2xl m-5 gap-2 shadow-sm cursor-pointer hover:shadow-lg transition-shadow duration-300 flex justify-around items-center text-xl"
-                                    >
-                                        <Image
-                                            src={'/icons/discord-white-icon.svg'}
-                                            alt={'discord'}
-                                            width={10}
-                                            height={10}
-                                            className={'h-5 w-auto'}
-                                        />
-                                        <p>Join our Discord</p>
-                                    </a>
-                                    <a
-                                        href={
-                                            'https://www.instagram.com/kapwacodefest/#'
-                                        }
-                                        target={'_blank'}
-                                        className="text-center font-sans text-white bg-gradient-to-r from-[#8134AF] to-[#FF0069] px-10 py-5 rounded-2xl m-5 gap-2 shadow-sm cursor-pointer hover:shadow-lg transition-shadow duration-300 flex justify-around items-center text-xl"
-                                    >
-                                        <Image
-                                            src={'/icons/instagram.svg'}
-                                            alt={'insta'}
-                                            width={10}
-                                            height={10}
-                                            className={'h-5 w-auto'}
-                                        />
-                                        <p>Follow our Instagram</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </motion.div>
-                    )}
-            </AnimatePresence>
+            <motion.div
+            key="registrationClosed"
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            className="mt-6 w-full flex flex-col items-center"
+            >
+            <div className="text-center font-sans text-black px-10 bg-gradient-to-r from-gray-200 to-gray-100 rounded-2xl mx-5 shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col items-center text-xl">
+                <div className="pt-6 pb-6">
+                <p className="font-semibold text-2xl">Registration Closed</p>
+                <p className="mt-2 text-base">
+                    Thanks for your interest! Registration for Kapwa Codefest is now closed.
+                </p>
+                <p className="mt-1 text-base">
+                    If you already registered, please check your email for details.
+                </p>
+                </div>
+            </div>
+            </motion.div>
         </div>
     );
 }
