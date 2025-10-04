@@ -1,56 +1,7 @@
-import axios from 'axios';
 import HeroHeader from '@/app/components/HeroHeader';
-import { useEffect, useMemo, useState } from 'react';
-import { useAuth } from 'react-oidc-context';
 import { motion } from 'framer-motion';
 
-const MIN_DELAY_MS = 500;
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-type UIState = 'loading' | 'profileIncomplete' | 'canRegister' | 'doneOrGuest';
-
 export default function LandingPage() {
-    const auth = useAuth();
-    const [isLoading, setIsLoading] = useState(true);
-    const [isProfileComplete, setIsProfileComplete] = useState(false);
-    const [isRegistered, setIsRegistered] = useState(false);
-
-    useEffect(() => {
-        if (
-            !auth.isAuthenticated ||
-            !auth.user?.id_token ||
-            !auth.user?.profile?.sub
-        )
-            return;
-
-        const fetchRegistrationData = async () => {
-            setIsLoading(true);
-            try {
-                const [res] = await Promise.all([
-                    axios.get(
-                        `${process.env.NEXT_PUBLIC_API_GATEWAY_INVOKE_URL}/users/${auth.user?.profile?.sub}/check-registration`,
-                        {
-                            headers: {
-                                Authorization: `Bearer ${auth.user?.id_token}`,
-                            },
-                        }
-                    ),
-                    sleep(MIN_DELAY_MS),
-                ]);
-
-                setIsProfileComplete(res.data.is_complete);
-                setIsRegistered(res.data.is_registered);
-            } catch (error) {
-                // Fall back to prompt profile completion if error occurs
-                console.error('Error fetching user profile:', error);
-                setIsProfileComplete(false);
-                setIsRegistered(false);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchRegistrationData();
-    }, [auth.isAuthenticated, auth.user?.id_token, auth.user?.profile?.sub]);
 
 
     return (
