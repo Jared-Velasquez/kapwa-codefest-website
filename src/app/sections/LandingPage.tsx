@@ -109,7 +109,7 @@ export default function LandingPage() {
                 <div className="pt-6 pb-6">
                 <p className="font-semibold text-2xl">Registration Closed</p>
                 <p className="mt-2 text-base">
-                    Thanks for your interest! Registration for Kapwa Codefest is now closed.
+                    Thanks for your interest! Registration for Kapwa Codefest 2025 is now closed.
                 </p>
                 <p className="mt-1 text-base">
                     If you already registered, please check your email for details.
